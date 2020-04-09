@@ -3,14 +3,14 @@
  * @author jacob, muizz, raheel
  */
 
-public class Score {
+public class CurrentGameScoreCalculator {
     
     private int score;
     
     /**
      * This constructor initalizes the score at 0
      */
-    public Score() {
+    public CurrentGameScoreCalculator() {
         
         this.score = 0;
     }
