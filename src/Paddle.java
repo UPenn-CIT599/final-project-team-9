@@ -1,7 +1,9 @@
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Line;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.RoundedRectangle;
 import org.newdawn.slick.geom.Shape;
+import org.newdawn.slick.geom.ShapeRenderer;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -15,17 +17,21 @@ import org.lwjgl.input.*;
  * @author jacob, muizz, raheel
  *
  */
-public class Paddle implements KeyListener{
+public class Paddle implements ElementInterface{
     
+    //private fields 
     private int width = 150;
-    private int height = 40;
+    private int height = 20;
     //private int left;
     //private int right;
     private Rectangle paddle;
     private Color color;
-    private int x;
-    private int y = 10;
+    private float x;
+    private float startingX;
     private int paddlespeed;
+    
+    //public fields
+    public float yPaddle = height - height / 10 ;
     
 
     /**
@@ -33,43 +39,50 @@ public class Paddle implements KeyListener{
      * Takes into account difficulty selected prior to game start (easy, medium, hard)
      * Variables include size, color, position 
      */
-    public Paddle(String difficulty, int startX, int startY, Color paddleColor) {
+    public Paddle(String difficulty, Color paddleColor) {
+       
         
         //need a getter in gameboard for width of board
-        x = GameBoard.width/2 - width/2;
+        startingX = GameBoard.width/2;
         
         if(difficulty == "easy") {
-            paddle = new Rectangle(startX,startY, width, height);
+            paddle = new RoundedRectangle(startingX,yPaddle, width, height, 10);
             this.color = paddleColor;
             this.paddlespeed = 50;
         }
         else if (difficulty == "medium") {
             int medWidth = (int) (this.width*.95);
-            paddle = new Rectangle(startX, startY, medWidth, height);
+            paddle = new RoundedRectangle(startingX, yPaddle, medWidth, height,10);
             this.color = paddleColor;
             this.paddlespeed = 60;
         }
         else if(difficulty == "hard") {
             int hardWidth = (int) (this.width*.9);
-            paddle = new Rectangle(startX, startY, hardWidth, height);
+            paddle = new RoundedRectangle(startingX, yPaddle, hardWidth, height,10);
             this.color = paddleColor;
             this.paddlespeed = 70;
         }
         
     }
-   
-    int getX_pos() {
-        return this.x;
-    }
     
-    int getY_pos() {
-        return this.y;
-    }
-    
+    @Override
     public void update() {
         
     }
     
+    @Override
+    public void display() {
+        ShapeRenderer.fill(paddle);
+    }     
+    
+    float getX_pos() {
+        return this.x;
+    }
+    
+    float getY_pos() {
+        return this.yPaddle;
+    }
+       
     
     /**
      * this method is the key listener for left and right 
@@ -99,5 +112,7 @@ public class Paddle implements KeyListener{
         // TODO Auto-generated method stub
         
     }
+
+    
 }
 
