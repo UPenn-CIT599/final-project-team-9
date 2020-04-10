@@ -1,0 +1,11 @@
+Rank Name Score
+1 Raheel 120
+2 Jacob 100
+3 Muizz 90
+4 Arvind 80
+5 Stacy 75
+6 James 70
+7 Captain 65
+8 TheBestPlayer 70
+9 Chandler 69
+10 TheOnlyOne 54
