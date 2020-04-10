@@ -105,6 +105,7 @@ public class HighScore {
 		}
 	}
 
+	//to be deleted later - only used for internal demo purposes
 	public static void main(String[] args) {
 		Player newGuy = new Player("Testing");
 		newGuy.setScore(95);
