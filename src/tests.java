@@ -10,12 +10,10 @@ class tests {
      */
     void HighScoreTest() {
         boolean testValue = false;
-        HighScore highscore = new HighScore(300, "test");
-        ArrayList<Integer> testList = new ArrayList<Integer>();
-        testList.add(0, 100);
-        testList.add(1, 200);
-        testList.add(2, 250);
-        testValue = highscore.checkHighScore(testList);
+        Player test = new Player ("test", 300);
+        HighScore highscore = new HighScore(test, "high_score_test_file.txt");
+        highscore.extractHighScore();
+        testValue = highscore.checkHighScore();
         assertEquals(testValue, true);
     }
 
