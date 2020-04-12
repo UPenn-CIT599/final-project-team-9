@@ -1,14 +1,14 @@
 import org.newdawn.slick.*;
-import org.newdawn.slick.geom.Line;
-import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.RoundedRectangle;
-import org.newdawn.slick.geom.Shape;
-import org.newdawn.slick.geom.ShapeRenderer;
 
+import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import org.lwjgl.input.*;
+import javax.swing.*;
 
 /**
  * This class initializes paddle for game play
@@ -17,102 +17,117 @@ import org.lwjgl.input.*;
  * @author jacob, muizz, raheel
  *
  */
-public class Paddle implements ElementInterface{
+public class Paddle extends JPanel implements ActionListener, KeyListener{
     
-    //private fields 
-    private int width = 150;
-    private int height = 20;
-    //private int left;
-    //private int right;
-    private Rectangle paddle;
-    private Color color;
-    private float x;
-    private float startingX;
-    private int paddlespeed;
+    private Timer tm = new Timer(2, this);
+    private double x = 0, velx = 0, y = 0, vely = 0;
+    private double paddleheight = 15, paddlewidth = 90;
+    private String difficulty;
+    private double speedmultiplier = 1;
+    private double paddlesizemultiplier = 1;
+    private int canvassizeX = 600, canvassizeY =600;
     
-    //public fields
-    public float yPaddle = height - height / 10 ;
-    
-
-    /**
-     * This constructor initializes the paddle for game play
-     * Takes into account difficulty selected prior to game start (easy, medium, hard)
-     * Variables include size, color, position 
-     */
-    public Paddle(String difficulty, Color paddleColor) {
-       
+    //constructor with timer and key listener 
+    //will need the canvas size 
+    public Paddle(int canvasSizeX, int canvasSizeY, String difficulty) {
         
-        //need a getter in gameboard for width of board
-        startingX = GameBoard.width/2;
+        tm.start();
         
-        if(difficulty == "easy") {
-            paddle = new RoundedRectangle(startingX,yPaddle, width, height, 10);
-            this.color = paddleColor;
-            this.paddlespeed = 50;
+        this.x = canvasSizeX /2;
+        this.y = canvasSizeY * .8;
+        this.canvassizeX = canvasSizeX;
+        this.canvassizeY = canvasSizeY;
+        this.difficulty = difficulty;
+        
+        //change paddle based on difficulty
+        if(difficulty == "medium") {
+            this.speedmultiplier = 1.15;
+            this.paddlesizemultiplier = .90;
         }
-        else if (difficulty == "medium") {
-            int medWidth = (int) (this.width*.95);
-            paddle = new RoundedRectangle(startingX, yPaddle, medWidth, height,10);
-            this.color = paddleColor;
-            this.paddlespeed = 60;
-        }
-        else if(difficulty == "hard") {
-            int hardWidth = (int) (this.width*.9);
-            paddle = new RoundedRectangle(startingX, yPaddle, hardWidth, height,10);
-            this.color = paddleColor;
-            this.paddlespeed = 70;
+        if(difficulty == "hard") {
+            this.speedmultiplier = 1.25;
+            this.paddlesizemultiplier = .80;
         }
         
+        addKeyListener(this);
+        setFocusable(true);
+        setFocusTraversalKeysEnabled(false);
     }
     
-    @Override
-    public void update() {
+
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.setColor(Color.DARK_GRAY);
+        g.fillRoundRect((int) x, (int) y, 
+          (int) paddlewidth * (int) this.paddlesizemultiplier, (int) paddleheight, 15, 15);
         
     }
     
-    @Override
-    public void display() {
-        ShapeRenderer.fill(paddle);
-    }     
-    
-    float getX_pos() {
-        return this.x;
-    }
-    
-    float getY_pos() {
-        return this.yPaddle;
-    }
-       
-    
-    /**
-     * this method is the key listener for left and right 
-     */
-    @Override
-    public void keyPressed(KeyEvent arg0) {
-        int keyCode = arg0.getKeyCode();
-        switch ( keyCode ) {
-            case KeyEvent.VK_RIGHT:
-                this.x += paddlespeed;
-                break;
-            case KeyEvent.VK_LEFT:
-                this.x -= paddlespeed;
-                break;
+    //action listener method for a change 
+    public void actionPerformed(ActionEvent e) {
+        
+        if (x < 0) { 
+            velx = 0; 
+            x = 1; 
+        } 
+        if( x > this.canvassizeX - (this.paddlewidth * this.paddlesizemultiplier)){ 
+            velx = 0; 
+            x = this.canvassizeX - (this.paddlesizemultiplier* this.paddlewidth)-1; 
         }
+        if (y < 0) { 
+            vely = 0; 
+            y = 1; 
+        } 
+        if(y > this.canvassizeY - this.paddleheight) { 
+            vely = 0; 
+            y = this.canvassizeY - this.paddleheight-1; 
+        }
+         
+        
+        x = x + velx;
+        y = y + vely;
+        repaint();
         
     }
-
-    @Override
-    public void keyReleased(KeyEvent arg0) {
-        // TODO Auto-generated method stub
+    
+    //key listener for key pressed 
+    public void keyPressed(KeyEvent e) {
+        int code = e.getKeyCode();
+        if( code == KeyEvent.VK_LEFT) {
+            velx = -1 * this.speedmultiplier;
+            vely = 0;
+        }
+        if(code == KeyEvent.VK_RIGHT) {
+            velx = 1 * this.speedmultiplier;
+            vely = 0;
+        }
+        /*if(code == KeyEvent.VK_UP) {
+            velx = 0;
+            vely = -1 * this.speedmultiplier;
+        }
+        if(code == KeyEvent.VK_DOWN) {
+            velx = 0;
+            vely = 1 * this.speedmultiplier;
+        }*/
+    }
+    
+    public void keyTyped(KeyEvent e) {}
+    public void keyReleased(KeyEvent e) {
+        velx = 0;
+        vely = 0;
+    }
+    
+    public static void main(String[] args) {
+        Paddle p = new Paddle(600, 600, "easy");
+        
+        JFrame jf = new JFrame();
+        jf.setTitle("Paddle Test");
+        jf.setSize(600, 600);
+        jf.setVisible(true);
+        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jf.add(p);
         
     }
-
-    @Override
-    public void keyTyped(KeyEvent arg0) {
-        // TODO Auto-generated method stub
-        
-    }
-
     
 }
 
