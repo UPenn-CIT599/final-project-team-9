@@ -114,8 +114,7 @@ public class HighScore {
 		gamePlay.checkHighScore();
 		gamePlay.writeScore();
 		
-		Player newGuy2 = new Player("Testing2");
-		newGuy.setScore(52);
+		Player newGuy2 = new Player("Testing2", 52);
 		HighScore gamePlay2 = new HighScore(newGuy);
 		gamePlay2.extractHighScore();
 		gamePlay2.checkHighScore();
