@@ -1,16 +1,16 @@
 import java.awt.Color;
 import java.awt.Container;
-import java.awt.Desktop;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  * This class initializes main menu
@@ -24,11 +24,13 @@ import javax.swing.JPanel;
 public class MainMenu implements ActionListener{
     
     private JPanel titleNamePanel, easyButtonPanel, medButtonPanel, hardButtonPanel, highscorePanel, exitPanel;
-    private JLabel titleNameLabel;
+    private JPanel nameReminder, nameFieldPanel;
+    private JTextField nameField;
+    private JLabel titleNameLabel, nameReminderLabel;
     private JButton easyButton, medButton, hardButton, highscoreButton, exitButton;
-    private int x = 400, y = 600;
-    private int velx = 1, vely = 1;
     private JFrame window = new JFrame();
+    private String playerName, gameDifficulty;
+    
     //method for ball display on menu 
     
     /**
@@ -53,18 +55,40 @@ public class MainMenu implements ActionListener{
         //jpanel for title 
         //flashing background idea 
         titleNamePanel = new JPanel();
-        titleNamePanel.setBounds(100, 100, 600, 100);
+        titleNamePanel.setBounds(100, 50, 600, 100);
         titleNamePanel.setBackground(Color.MAGENTA);
-        //titleNamePanel.setFont(Font.SANS_SERIF);
-        
-        //add ball bouncing around in the background
-        
-        
-        
-        //jlabel
+
+        //jlabel for title
         titleNameLabel = new JLabel("Brick Breaker");
         titleNameLabel.setForeground(Color.white);
         titleNameLabel.setFont(new Font("Helvetica", Font.BOLD, 75));
+        
+        //jpanel for name field
+        nameFieldPanel = new JPanel();
+        nameFieldPanel.setBounds(200, 175, 400, 50);
+        nameFieldPanel.setBackground(Color.LIGHT_GRAY);
+        
+        //jtextfield for name
+        nameField = new JTextField("Please enter your name");
+        nameField.setSize(1000, 50);
+        nameField.setFont(new Font("Helvetica", Font.PLAIN,25));
+        //clear the field when focused 
+        nameField.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                nameField.setText("");
+            }
+        });
+//         nameField.addFocusListener(new FocusListener() {
+//            public void focusGained(FocusEvent e) {
+//                //nameField.setText("");
+//            }
+//            public void focusLost(FocusEvent arg0) {
+//                nameField.setText("Please enter your name");
+//            }
+//        });
+        
+        //add ball bouncing around in the background
+        
         
         
         //easy button panel
@@ -75,7 +99,9 @@ public class MainMenu implements ActionListener{
         //easy button
         easyButton = new JButton("Easy");
         easyButton.setFont(new Font("Helvetica", Font.PLAIN, 25));
-        easyButton.setBackground(Color.GREEN);
+        easyButton.setOpaque(false);
+        easyButton.setContentAreaFilled(false);
+        easyButton.setBorderPainted(false);
         easyButton.setForeground(Color.white);
         easyButton.addActionListener(this);
         
@@ -88,7 +114,9 @@ public class MainMenu implements ActionListener{
         //medium button
         medButton = new JButton("Medium");
         medButton.setFont(new Font("Helvetica", Font.PLAIN, 25));
-        medButton.setBackground(Color.orange);
+        medButton.setOpaque(false);
+        medButton.setContentAreaFilled(false);
+        medButton.setBorderPainted(false);
         medButton.setForeground(Color.white);
         medButton.addActionListener(this);
         
@@ -101,7 +129,9 @@ public class MainMenu implements ActionListener{
         String SQR = "Hard";
         hardButton = new JButton(SQR);
         hardButton.setFont(new Font("Helvetica", Font.PLAIN, 25));
-        hardButton.setBackground(Color.red);
+        hardButton.setOpaque(false);
+        hardButton.setContentAreaFilled(false);
+        hardButton.setBorderPainted(false);
         hardButton.setForeground(Color.white);
         hardButton.addActionListener(this);
         
@@ -112,8 +142,10 @@ public class MainMenu implements ActionListener{
         
         //high score button
         highscoreButton = new JButton("High Scores");
-        highscoreButton.setFont(new Font("Helvetica", Font.PLAIN, 40));
-        highscoreButton.setBackground(Color.DARK_GRAY);
+        highscoreButton.setFont(new Font("Helvetica", Font.PLAIN, 35));
+        highscoreButton.setOpaque(false);
+        highscoreButton.setContentAreaFilled(false);
+        highscoreButton.setBorderPainted(false);
         highscoreButton.setForeground(Color.white);
         highscoreButton.addActionListener(this);
         
@@ -122,25 +154,42 @@ public class MainMenu implements ActionListener{
         exitPanel.setBounds(375, 500, 50, 35);
         exitPanel.setBackground(Color.LIGHT_GRAY);
         
-        //medium button
+        //exit button
         exitButton = new JButton("Exit");
         exitButton.setFont(new Font("Helvetica", Font.ITALIC, 15));
-        exitButton.setBackground(Color.LIGHT_GRAY);
+        exitButton.setOpaque(false);
+        exitButton.setContentAreaFilled(false);
+        exitButton.setBorderPainted(false);
         exitButton.setForeground(Color.black);
         exitButton.addActionListener(this);
         
+        //name reminder panel
+        nameReminder = new JPanel();
+        nameReminder.setBounds(225, 325, 350, 35);
+        nameReminder.setBackground(Color.LIGHT_GRAY);
+        nameReminder.setVisible(false);
+        
+        //exit button
+        nameReminderLabel = new JLabel("Please Remember to enter your name!");
+        nameReminderLabel.setFont(new Font("Helvetica", Font.PLAIN, 20));
+        nameReminderLabel.setForeground(Color.red);
+        
         //build panel
         titleNamePanel.add(titleNameLabel);
+        nameFieldPanel.add(nameField);
         easyButtonPanel.add(easyButton);
         medButtonPanel.add(medButton);
         hardButtonPanel.add(hardButton);
         highscorePanel.add(highscoreButton);
+        nameReminder.add(nameReminderLabel);
         exitPanel.add(exitButton);
+        container.add(nameFieldPanel);
         container.add(titleNamePanel);
         container.add(highscorePanel);
         container.add(easyButtonPanel);
         container.add(medButtonPanel);
         container.add(hardButtonPanel);
+        container.add(nameReminder);
         container.add(exitPanel);
         
         
@@ -150,21 +199,56 @@ public class MainMenu implements ActionListener{
         
     }
     
-
+    
 
     public void actionPerformed(ActionEvent e) {
         String action = e.getActionCommand();
+        String input = nameField.getText();
+        nameField.setText(input);
+        
+        
         if (action.equals("Easy")) {
-           window.dispose(); 
-           //method to launch new game with easy
+            if(input.equalsIgnoreCase("") || input.equalsIgnoreCase("Please enter your name")) {
+                
+                nameReminder.setVisible(true);
+                nameField.setText("Please enter your name");
+            }
+            else{
+                this.gameDifficulty = "Easy";
+                this.playerName = input;
+                window.dispose(); 
+                //method to launch new game with easy
+            }
+           
         }
         else if(action.equals("Medium")) {
-            window.dispose();
-            //method to launch new game with medium
+            if(input.equalsIgnoreCase("") || input.equalsIgnoreCase("Please enter your name")) {
+                
+                nameReminder.setVisible(true);
+                nameField.setText("Please enter your name");
+            }
+            
+            else{
+                this.gameDifficulty = "Medium";
+                this.playerName = input;
+                window.dispose(); 
+                //method to launch new game with easy
+            }
+            
         }
         else if(action.equals("Hard")) {
-            window.dispose();
-            //method to launch new game with hard
+            if(input.equalsIgnoreCase("") || input.equalsIgnoreCase("Please enter your name")) {
+                
+                nameReminder.setVisible(true);
+                nameField.setText("Please enter your name");
+            }
+            
+            else{
+                this.gameDifficulty = "Hard";
+                this.playerName = input;
+                window.dispose(); 
+                //method to launch new game with easy
+            }
         }
         else if(action.equals("Exit")){
             window.dispose();
@@ -180,7 +264,7 @@ public class MainMenu implements ActionListener{
      * @return
      */
     public String getDifficulty() {
-        return null;
+        return gameDifficulty;
         
     }
     
@@ -189,7 +273,7 @@ public class MainMenu implements ActionListener{
      * @return
      */
     public String getUserName() {
-        return null;
+        return playerName;
         
     }
     
