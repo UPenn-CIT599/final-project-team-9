@@ -1,16 +1,26 @@
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.table.TableCellRenderer;
 
 /**
  * This class initializes main menu
@@ -26,10 +36,13 @@ public class MainMenu implements ActionListener{
     private JPanel titleNamePanel, easyButtonPanel, medButtonPanel, hardButtonPanel, highscorePanel, exitPanel;
     private JPanel nameReminder, nameFieldPanel;
     private JTextField nameField;
+    private JTable highscoreTable;
+    private JScrollPane highscoreScroll;
     private JLabel titleNameLabel, nameReminderLabel;
-    private JButton easyButton, medButton, hardButton, highscoreButton, exitButton;
+    private JButton easyButton, medButton, hardButton, exitButton;
     private JFrame window = new JFrame();
     private String playerName, gameDifficulty;
+    private File highscoreFile = new File("high_score_list.txt");
     
     //method for ball display on menu 
     
@@ -137,21 +150,82 @@ public class MainMenu implements ActionListener{
         
         //high score button panel
         highscorePanel = new JPanel();
-        highscorePanel.setBounds(275, 250, 250, 70);
-        highscorePanel.setBackground(Color.DARK_GRAY);
+        highscorePanel.setBounds(200, 225, 400, 150);
+        highscorePanel.setBackground(Color.LIGHT_GRAY);
         
-        //high score button
+        //high score JTable
+        ArrayList<String> highscoreArray = new ArrayList<String>();
+        try {
+            Scanner s = new Scanner(highscoreFile);
+            int i = 0;
+            while(s.hasNextLine()) {
+                highscoreArray.add(i, s.nextLine());
+                i++;
+            }
+            s.close();
+        }
+        catch(FileNotFoundException e){
+            e.printStackTrace();
+        }
+        
+        String[] columns = {"", "High Scores",""};
+        String[][] data = new String[11][3];
+        for(int i = 0; i < highscoreArray.size(); i++) {
+            int j = 0;
+            for(String word: highscoreArray.get(i).split(" ")) {
+                data[i][j] = word;
+                j++;
+            }
+        }
+        highscoreTable = new JTable(data, columns){
+            public boolean isCellEditable(int data, int columns) {
+                return false;
+            }
+            public Component prepareRenderer(TableCellRenderer r, int data, int columns) {
+                Component c = super.prepareRenderer(r, data, columns);
+                c.setBackground(Color.LIGHT_GRAY);
+                c.setFont(new Font("Helvetica",Font.BOLD,14));
+                return c;
+            }
+        };
+        highscoreTable.setPreferredScrollableViewportSize(new Dimension(350,100));
+        highscoreTable.setFillsViewportHeight(true);
+        highscoreScroll = new JScrollPane(highscoreTable);
+        
+        
+        /*//high score JTextArea
+        highscoreArea = new JTextArea("",0,6);
+        highscoreArea.setBackground(Color.LIGHT_GRAY);
+        try {
+            Scanner s = new Scanner(highscoreFile);
+            ArrayList<String> highscoreArray = new ArrayList<String>();
+            int i = 0;
+            while(s.hasNextLine()) {
+                highscoreArray.add(i, s.nextLine());
+                i++;
+            }
+            for(int j=0; j < highscoreArray.size(); j++ ) {
+                highscoreArea.append(highscoreArray.get(j) + "\n"); 
+            }
+            
+            s.close();
+        }
+        catch(FileNotFoundException e){
+            e.printStackTrace();
+        }*/
+        
+        /*//high score button
         highscoreButton = new JButton("High Scores");
         highscoreButton.setFont(new Font("Helvetica", Font.PLAIN, 35));
         highscoreButton.setOpaque(false);
         highscoreButton.setContentAreaFilled(false);
         highscoreButton.setBorderPainted(false);
         highscoreButton.setForeground(Color.white);
-        highscoreButton.addActionListener(this);
+        highscoreButton.addActionListener(this);*/
         
         //exit button panel
         exitPanel = new JPanel();
-        exitPanel.setBounds(375, 500, 50, 35);
+        exitPanel.setBounds(350, 515, 50, 40);
         exitPanel.setBackground(Color.LIGHT_GRAY);
         
         //exit button
@@ -165,7 +239,7 @@ public class MainMenu implements ActionListener{
         
         //name reminder panel
         nameReminder = new JPanel();
-        nameReminder.setBounds(225, 325, 350, 35);
+        nameReminder.setBounds(225, 480, 350, 35);
         nameReminder.setBackground(Color.LIGHT_GRAY);
         nameReminder.setVisible(false);
         
@@ -180,7 +254,7 @@ public class MainMenu implements ActionListener{
         easyButtonPanel.add(easyButton);
         medButtonPanel.add(medButton);
         hardButtonPanel.add(hardButton);
-        highscorePanel.add(highscoreButton);
+        highscorePanel.add(highscoreScroll);
         nameReminder.add(nameReminderLabel);
         exitPanel.add(exitButton);
         container.add(nameFieldPanel);
@@ -203,7 +277,7 @@ public class MainMenu implements ActionListener{
 
     public void actionPerformed(ActionEvent e) {
         String action = e.getActionCommand();
-        String input = nameField.getText();
+        String input = nameField.getText().trim(); //spaces removed from name
         nameField.setText(input);
         
         
