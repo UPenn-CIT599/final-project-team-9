@@ -98,7 +98,7 @@ public class Ball extends JPanel implements ActionListener{
     
     public void paintComponent(Graphics g) {
     	super.paintComponent(g);
-    	g.setColor(Color.RED);
+    	g.setColor(Color.PINK);
     	g.fillOval(posX, posY, 20, 20);
    
     }
