@@ -168,21 +168,16 @@ public class MainMenu extends CustomMenuElements implements ActionListener{
         nameReminderLabel.setForeground(Color.red);
         
         //build panel
-        titleNamePanel.add(titleNameLabel);
-        nameFieldPanel.add(nameField);
-        easyButtonPanel.add(easyButton);
-        medButtonPanel.add(medButton);
-        hardButtonPanel.add(hardButton);
-        highscorePanel.add(highscoreScroll);
+        titleNamePanel.add(titleNameLabel); nameFieldPanel.add(nameField);
+        easyButtonPanel.add(easyButton);medButtonPanel.add(medButton);
+        hardButtonPanel.add(hardButton); highscorePanel.add(highscoreScroll);
         nameReminder.add(nameReminderLabel);
-        exitPanel.add(exitButton);
-        container.add(nameFieldPanel);
-        container.add(titleNamePanel);
-        container.add(highscorePanel);
-        container.add(easyButtonPanel);
-        container.add(medButtonPanel);
-        container.add(hardButtonPanel);
-        container.add(nameReminder);
+        
+        //add elements to panels
+        exitPanel.add(exitButton); container.add(nameFieldPanel);
+        container.add(titleNamePanel); container.add(highscorePanel);
+        container.add(easyButtonPanel); container.add(medButtonPanel);
+        container.add(hardButtonPanel); container.add(nameReminder);
         container.add(exitPanel);
         
         
