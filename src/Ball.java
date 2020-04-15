@@ -19,29 +19,38 @@ import java.awt.Color;
 
 public class Ball extends JPanel implements ActionListener{
     
-	private int posX = 120;
-	private int posY = 350;
+	private int posX;
+	private int posY;
 	private int xDir = -1;
 	private int yDir = -2;
 	private Timer timer;
-	private int delay = 8;
+	private int delay;
 	
     /**
      * This constructor will create the ball for game play
-     * Includes size, color, speed, position to start 
+     * Includes speed and position to start 
      */
-    public Ball(int posX, int posY){
+    public Ball(int posX, int posY, int delay){
     	
     	this.posX = posX;
     	this.posY = posY;
+    	this.delay = delay;
     	timer = new Timer (delay, this);
     	timer.start();
         
     }
     
-    @Override
+    public int getPosX() {
+		return posX;
+	}
+
+	public int getPosY() {
+		return posY;
+	}
+
+	@Override
     public void actionPerformed(ActionEvent e) {
-    	timer.start();
+   
     	if(true) {
     		//this will change the ball's direction once it intersects with paddle
     		//need to update inputs to detect paddle; currently just arbitrary inputs
@@ -59,10 +68,7 @@ public class Ball extends JPanel implements ActionListener{
     		if(posX > 400) {
     			xDir = -xDir;
     		}
-    		//remove this so that when the ball falls below the paddle it disappears
-    		if(posY > 400) {
-    			yDir = -yDir;
-    		}
+    		
     	}
     	repaint();
     }
@@ -70,32 +76,23 @@ public class Ball extends JPanel implements ActionListener{
     /**
      * This method will set position X and position Y for ball location 
      */
-    /*
-    public void setPositionBall(double posX, double posY) {
+    public void setPositionBall(int posX, int posY) {
     	this.posX = posX;
     	this.posY = posY;
     	
-    	posX = 50.0;
-    	posY = 50.0;
     	
     }
-    */
-   
     /**
-     * This method will get position X and position Y for ball location
-     **/
-    /*
-    public int[] getPositionBall() {
-        
-    }
-    */
-    
-    
+     * This method displays the ball
+     */
     void display() {
     	repaint();
     	
     }
     
+    /**
+     * This method creates the ball
+     */
     public void paintComponent(Graphics g) {
     	super.paintComponent(g);
     	g.setColor(Color.PINK);
@@ -104,13 +101,14 @@ public class Ball extends JPanel implements ActionListener{
     }
     
     public static void main(String[] args) {
-		JFrame frame = new JFrame("Test");
+		JFrame frame = new JFrame("Ball");
 		frame.setVisible(true);
 		frame.setSize(500, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		Ball ball = new Ball(100, 100);
+		Ball ball = new Ball(200, 400, 10);
 		frame.add(ball);
 		ball.display();
+		
 		
 		
 	}
