@@ -25,7 +25,7 @@ public class Ball extends Shape{
     private int posX;
     private int posY;
     private int dx = -1;
-    private int dy = -2;
+    private int dy = -1;
     private final static int size = 10;
     private JPanel panel;
     
@@ -40,6 +40,7 @@ public class Ball extends Shape{
         this.posX = posX;
         this.posY = posY;
         this.panel = panel;
+        
                         
     }
     
@@ -50,7 +51,10 @@ public class Ball extends Shape{
     public int getPosY() {
         return posY;
     }
-
+    
+    public int getSize() {
+    	return size;
+    }
    
     /**
      * This method will set position X and position Y for ball location 
@@ -72,13 +76,29 @@ public class Ball extends Shape{
         if(getY() + dy < 0) {
             dy = 1;
         }
+        /*
         if(getY() + getHeight() + dy > panel.getHeight()) {
             dy = -1;
         }
+        */
         super.move(dx, dy);
     }
   
     
+    public void right() {
+    	dx = -dx;
+    }
     
+    public void left() {
+    	dx = -dx;
+    }
+    
+    public void up() {
+    	dy = -dy;
+    }
+    
+    public void down() {
+    	dy = -dy;
+    }
 
 }

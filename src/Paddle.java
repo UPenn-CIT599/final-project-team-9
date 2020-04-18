@@ -7,8 +7,8 @@ public class Paddle extends Shape{
     
     private JPanel panel;
     private static int startx = 200;
-    private static int starty = 400;
-    private static int width = 50;
+    private static int starty = 500;
+    private static int width = 75;
     private static int height = 10;
     private int speed = 10;
 
@@ -31,5 +31,6 @@ public class Paddle extends Shape{
     public void moveLeft() {
         move(-speed);
     }
+    
 
 }

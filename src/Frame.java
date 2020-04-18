@@ -6,7 +6,7 @@ public class Frame extends JFrame{
     private final int frameheight = 600;
     private final int framewidth = 600;
 
-    private Panel panel = new Panel();
+    private Panel panel = new Panel(1, "easy");
     
     public Frame() {
         

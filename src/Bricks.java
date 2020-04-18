@@ -12,8 +12,8 @@ public class Bricks {
 	public Bricks(int x, int y, String color) {
 		this.x = x;
 		this.y = y;
-		brickHeight = 30;
-		brickWidth = 20;
+		brickHeight = 20;
+		brickWidth = 30;
 		visible = true;
 		this.color = color;
 	}

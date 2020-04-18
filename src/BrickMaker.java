@@ -22,9 +22,9 @@ public class BrickMaker {
 		double blueMix, greenMix, orangeMix, redMix, grayMix, invisibleMix; 
 		int blueTotal, greenTotal, orangeTotal, redTotal, grayTotal, invisibleTotal;
 
-		maxRow = canvasSizeX / 20;
+		maxRow = canvasSizeX / 30;
 		maxCol = (int) ((int) canvasSizeY * .60);
-		maxCol = (maxCol / 30);
+		maxCol = (maxCol / 20);
 		totalBricks = maxRow * maxCol;
 
 		if (difficulty.equals("easy")) {
@@ -76,19 +76,19 @@ public class BrickMaker {
 		if (level == 1) {
 			double y = .35 * canvasSizeY;
 			yBound = (int) Math.round(y);
-			xBound = canvasSizeX - 20;
+			xBound = canvasSizeX - 30;
 		} else if (level == 2) {
 			double y = .45 * canvasSizeY;
 			yBound = (int) Math.round(y);
-			xBound = canvasSizeX - 20;
+			xBound = canvasSizeX - 30;
 		} else {
 			double y = .60 * canvasSizeY;
 			yBound = (int) Math.round(y);
-			xBound = canvasSizeX - 20;
+			xBound = canvasSizeX - 30;
 		}
 
-		for (int y = 0; y < yBound; y += 30) {
-			for (int x = 0; x <= xBound; x += 20) {
+		for (int y = 0; y < yBound; y += 20) {
+			for (int x = 0; x <= xBound; x += 30) {
 				boolean found = false;
 				while (found == false) {
 					num = generator.nextInt(7);
@@ -127,13 +127,28 @@ public class BrickMaker {
 
 	}
 	
-	private void deleteInvisibleBricks() {
+	public void deleteInvisibleBricks() {
 		for(int i = 0; i < bucket.size(); i++) {
-			if(bucket.get(i).getColor().equals("Invisible")) {
+			if(bucket.get(i).isVisible() == false) {
 				bucket.remove(i);
 				i--;
 			}
 		}
+	}
+	
+	public boolean isGameOver() {
+		int counter = 0;
+		
+		for(int i = 0; i < bucket.size(); i++) {
+			counter += bucket.get(i).getStrength();	
+			
+		}
+		
+		if(counter == 0 ) {
+			return true;
+		}
+		
+		return false;
 	}
 
 	
@@ -141,34 +156,34 @@ public class BrickMaker {
 		return bucket;
 	}
 
-	public void draw(Graphics g) {
+	public void draw(Graphics2D g) {
 		for (Bricks bricks : bucket) {
-			if (bricks.getColor().contentEquals("Blue")) {
+			if (bricks.getColor().contentEquals("Blue") && bricks.isVisible()) {
 				g.setColor(Color.BLACK);
 				g.drawRect(bricks.getX(), bricks.getY(), bricks.getBrickWidth(), bricks.getBrickHeight());
 				g.setColor(new Color(0,191,255));
 				g.fillRect(bricks.getX(), bricks.getY(), bricks.getBrickWidth(), bricks.getBrickHeight());
 			}
-			if (bricks.getColor().contentEquals("Orange")) {
+			if (bricks.getColor().contentEquals("Orange") && bricks.isVisible()) {
 				g.setColor(Color.BLACK);
 				g.drawRect(bricks.getX(), bricks.getY(), bricks.getBrickWidth(), bricks.getBrickHeight());
 				g.setColor(new Color(255,165,0));
 				g.fillRect(bricks.getX(), bricks.getY(), bricks.getBrickWidth(), bricks.getBrickHeight());
 			}
-			if (bricks.getColor().contentEquals("Red")) {
+			if (bricks.getColor().contentEquals("Red") && bricks.isVisible()) {
 				g.setColor(Color.BLACK);
 				g.drawRect(bricks.getX(), bricks.getY(), bricks.getBrickWidth(), bricks.getBrickHeight());
 				g.setColor(new Color(255,99,71));
 				g.fillRect(bricks.getX(), bricks.getY(), bricks.getBrickWidth(), bricks.getBrickHeight());
 			}
-			if (bricks.getColor().contentEquals("Gray")) {
+			if (bricks.getColor().contentEquals("Gray") && bricks.isVisible()) {
 				g.setColor(Color.BLACK);
 				g.drawRect(bricks.getX(), bricks.getY(), bricks.getBrickWidth(), bricks.getBrickHeight());
 				g.setColor(Color.LIGHT_GRAY);
 				g.fillRect(bricks.getX(), bricks.getY(), bricks.getBrickWidth(), bricks.getBrickHeight());
 				
 			}
-			if (bricks.getColor().contentEquals("Green")) {
+			if (bricks.getColor().contentEquals("Green") && bricks.isVisible()) {
 				g.setColor(Color.BLACK);
 				g.drawRect(bricks.getX(), bricks.getY(), bricks.getBrickWidth(), bricks.getBrickHeight());
 				g.setColor(new Color(124,252,0));
@@ -183,6 +198,10 @@ public class BrickMaker {
 		BrickMaker brickGame = new BrickMaker(600, 600, "hard", 3);
 		brickGame.makeBricks();
 		ArrayList<Bricks> brickListing = brickGame.getBucket();
+		System.out.println(brickListing.get(0).getStrength());
+		brickListing.get(0).gotHit();
+		System.out.println(brickListing.get(0).getStrength());
+		/*
 		System.out.println(brickListing.size());
 
 		for (Bricks bricks : brickListing) {
@@ -212,6 +231,7 @@ public class BrickMaker {
 				i++;
 			}
 		}
+		*/
 
 		//SoundPlayer sound = new SoundPlayer("02 Tum Se Hi.wav");
 		//SoundPlayer sound2 = new SoundPlayer("02 Pungi.wav");
