@@ -11,17 +11,6 @@ public class Paddle extends Shape{
     private static int width = 50;
     private static int height = 10;
     private int speed = 10;
-    
-
-
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.setColor(Color.DARK_GRAY);
-        g.fillRoundRect((int) x, (int) y, 
-          (int) paddlewidth * (int) this.paddlesizemultiplier, (int) paddleheight, 15, 15);
-  
-        
-    }
 
     
     public Paddle(Color color, JPanel panel) {
@@ -38,18 +27,6 @@ public class Paddle extends Shape{
     public void moveRight() {
         move(speed);
     }
-    
-    public static void main(String[] args) {
-        Paddle p = new Paddle(600, 600, "easy");
-        
-        JFrame jf = new JFrame();
-        jf.setTitle("Paddle Test");
-        jf.setSize(600, 600);
-        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jf.add(p);
-        
-        jf.setVisible(true);
-        
 
     public void moveLeft() {
         move(-speed);

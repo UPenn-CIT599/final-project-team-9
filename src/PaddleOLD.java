@@ -17,7 +17,7 @@ import javax.swing.*;
  * @author jacob, muizz, raheel
  *
  */
-public class Paddle extends JPanel implements ActionListener, KeyListener{
+public class PaddleOLD extends JPanel implements ActionListener, KeyListener{
     
     private Timer tm = new Timer(2, this);
     private double x = 0, velx = 0, y = 0, vely = 0;
@@ -29,7 +29,7 @@ public class Paddle extends JPanel implements ActionListener, KeyListener{
     
     //constructor with timer and key listener 
     //will need the canvas size 
-    public Paddle(int canvasSizeX, int canvasSizeY, String difficulty) {
+    public PaddleOLD(int canvasSizeX, int canvasSizeY, String difficulty) {
         
         tm.start();
         
@@ -118,7 +118,7 @@ public class Paddle extends JPanel implements ActionListener, KeyListener{
     }
     
     public static void main(String[] args) {
-        Paddle p = new Paddle(600, 600, "easy");
+        PaddleOLD p = new PaddleOLD(600, 600, "easy");
         
         JFrame jf = new JFrame();
         jf.setTitle("Paddle Test");

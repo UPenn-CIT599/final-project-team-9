@@ -4,12 +4,9 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Random;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 
-
-public class BrickMaker extends JPanel{
+public class BrickMaker {
 	private int canvasSizeX, canvasSizeY, maxRow, maxCol, totalBricks, level;
 	private String difficulty;
 	private ArrayList<Bricks> bucket = new ArrayList<Bricks>();
@@ -221,14 +218,14 @@ public class BrickMaker extends JPanel{
 		
 
 		/*
-		 * Ball ball = new Ball(600, 600, 8); */
+		 * Ball ball = new Ball(600, 600, 8); 
 		 
 		 JFrame jf = new JFrame(); 
 		 jf.setTitle("Bricks Test"); 
 		 jf.setSize(600, 600);
 		 jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		 /*
+		 
 		 Paddle p = new Paddle(600, 600, "easy");
 		 JPanel mainPanel = new JPanel();
 		 JPanel brickPanel = new JPanel();
@@ -239,7 +236,7 @@ public class BrickMaker extends JPanel{
 
 		  mainPanel.add(brickPanel);
 		  //mainPanel.add(paddlePanel);
-		  */
+		  
 		 
 		  jf.add(brickGame);
 		  jf.setLocationRelativeTo(null);
@@ -247,7 +244,7 @@ public class BrickMaker extends JPanel{
 		  //sound2.Sound();
 		 
 		  
-		  
+		  */
 		
 
 	}

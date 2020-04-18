@@ -1,8 +1,5 @@
 import javax.swing.JFrame;
 
-import testing.Frame;
-import testing.Panel;
-
 
 public class Frame extends JFrame{
     

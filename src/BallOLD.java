@@ -17,7 +17,7 @@ import java.awt.Color;
  * @author jacob. muizz, raheel
  */
 
-public class Ball extends JPanel implements ActionListener{
+public class BallOLD extends JPanel implements ActionListener{
     
 	private int posX;
 	private int posY;
@@ -30,7 +30,7 @@ public class Ball extends JPanel implements ActionListener{
      * This constructor will create the ball for game play
      * Includes speed and position to start 
      */
-    public Ball(int posX, int posY, int delay){
+    public BallOLD(int posX, int posY, int delay){
     	
     	this.posX = posX;
     	this.posY = posY;
@@ -105,7 +105,7 @@ public class Ball extends JPanel implements ActionListener{
 		frame.setVisible(true);
 		frame.setSize(500, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		Ball ball = new Ball(200, 400, 10);
+		BallOLD ball = new BallOLD(200, 400, 10);
 		frame.add(ball);
 		ball.display();
 		
