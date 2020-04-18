@@ -27,6 +27,7 @@ public class SoundPlayer {
 				Clip clip = (Clip) AudioSystem.getLine(info);
 				clip.open(audioInput);
 				clip.start();
+				clip.loop(Clip.LOOP_CONTINUOUSLY);
 
 				/*JOptionPane.showMessageDialog(null, "Press OK to pause");
 				long clipTimePosition = clip.getMicrosecondPosition();
@@ -37,6 +38,7 @@ public class SoundPlayer {
 				clip.start();
 
 				JOptionPane.showMessageDialog(null, "Press OK to stop playing");*/
+				
 			} catch(Exception e) {
 				e.printStackTrace();
 			}

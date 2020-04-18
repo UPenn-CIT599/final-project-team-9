@@ -10,7 +10,7 @@ public class Paddle extends Shape{
     private static int starty = 500;
     private static int width = 75;
     private static int height = 10;
-    private int speed = 10;
+    private int speed = 25;
 
     
     public Paddle(Color color, JPanel panel) {

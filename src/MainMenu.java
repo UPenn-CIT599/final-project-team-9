@@ -83,6 +83,9 @@ public class MainMenu extends CustomMenuElements implements ActionListener{
             }
         });
 
+        //add music
+        SoundPlayer introMusic = new SoundPlayer("Neck_Pillow.wav");
+        introMusic.Sound();
         
         //add ball bouncing around in the background
         
@@ -183,10 +186,9 @@ public class MainMenu extends CustomMenuElements implements ActionListener{
         
         
         //set visible (keep as last line)
+        window.setLocationRelativeTo(null);
         window.setVisible(true);
         
-        SoundPlayer player = new SoundPlayer("Giant.wav");
-        player.Sound();
         
     }
     

@@ -87,7 +87,7 @@ public class BrickMaker {
 			xBound = canvasSizeX - 30;
 		}
 
-		for (int y = 0; y < yBound; y += 20) {
+		for (int y = 20; y < yBound; y += 20) {
 			for (int x = 0; x <= xBound; x += 30) {
 				boolean found = false;
 				while (found == false) {
@@ -193,79 +193,4 @@ public class BrickMaker {
 		}
 	}
 
-	// for testing only
-	public static void main(String[] args) {
-		BrickMaker brickGame = new BrickMaker(600, 600, "hard", 3);
-		brickGame.makeBricks();
-		ArrayList<Bricks> brickListing = brickGame.getBucket();
-		System.out.println(brickListing.get(0).getStrength());
-		brickListing.get(0).gotHit();
-		System.out.println(brickListing.get(0).getStrength());
-		/*
-		System.out.println(brickListing.size());
-
-		for (Bricks bricks : brickListing) {
-			System.out.println(bricks.getColor() + " X: " + bricks.getX() + " Y: " + bricks.getY() + " Strength: "
-					+ bricks.getStrength() + " Visible: " + bricks.isVisible());
-
-		}
-		int b = 0, g = 0, o = 0, r = 0, gr = 0, i = 0;
-
-		for (Bricks bricks : brickListing) {
-			if (bricks.getColor().equals("Blue")) {
-				b++;
-			}
-			if (bricks.getColor().equals("Orange")) {
-				o++;
-			}
-			if (bricks.getColor().equals("Red")) {
-				r++;
-			}
-			if (bricks.getColor().equals("Green")) {
-				g++;
-			}
-			if (bricks.getColor().equals("Gray")) {
-				gr++;
-			}
-			if (bricks.getColor().equals("Invisible")) {
-				i++;
-			}
-		}
-		*/
-
-		//SoundPlayer sound = new SoundPlayer("02 Tum Se Hi.wav");
-		//SoundPlayer sound2 = new SoundPlayer("02 Pungi.wav");
-		
-
-		/*
-		 * Ball ball = new Ball(600, 600, 8); 
-		 
-		 JFrame jf = new JFrame(); 
-		 jf.setTitle("Bricks Test"); 
-		 jf.setSize(600, 600);
-		 jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		 
-		 Paddle p = new Paddle(600, 600, "easy");
-		 JPanel mainPanel = new JPanel();
-		 JPanel brickPanel = new JPanel();
-		 JPanel paddlePanel = new JPanel();
-		 
-		 brickPanel.add(brickGame);
-		 paddlePanel.add(p);
-
-		  mainPanel.add(brickPanel);
-		  //mainPanel.add(paddlePanel);
-		  
-		 
-		  jf.add(brickGame);
-		  jf.setLocationRelativeTo(null);
-		  jf.setVisible(true);
-		  //sound2.Sound();
-		 
-		  
-		  */
-		
-
-	}
 }

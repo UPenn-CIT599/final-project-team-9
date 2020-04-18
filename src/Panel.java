@@ -31,8 +31,24 @@ public class Panel extends JPanel{
         bricks.makeBricks();
         ArrayList<Bricks> brickBucket = bricks.getBucket();
         
+        SoundPlayer sound;
+        
+        if(level == 1) {
+        	sound = new SoundPlayer("Giant.wav");
+        }
+        else if(level == 2) {
+        	sound = new SoundPlayer("Kul_Riddim.wav");
+        }
+        else {
+        	sound = new SoundPlayer("Night Owl.wav");
+        }
+        sound.Sound();
+      		
+        
+        
         timer = new javax.swing.Timer(5, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	
             	if((int)ball.getY()>(600+ball.getSize())) {
             		ball = new Ball(200,450,Color.red, Panel.this);
             		try {
@@ -56,8 +72,11 @@ public class Panel extends JPanel{
 			}
             	ball.move();
             	bricks.deleteInvisibleBricks();
-            	System.out.println(bricks.isGameOver());
-            	
+            	if(bricks.isGameOver()) {
+            		//check level of game and move on
+            		//if level 3, end game
+            		
+            	}
                 repaint();
             }
             
