@@ -1,12 +1,15 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class BrickMaker extends JPanel {
+
+
+public class BrickMaker extends JPanel{
 	private int canvasSizeX, canvasSizeY, maxRow, maxCol, totalBricks, level;
 	private String difficulty;
 	private ArrayList<Bricks> bucket = new ArrayList<Bricks>();
@@ -23,36 +26,35 @@ public class BrickMaker extends JPanel {
 		int blueTotal, greenTotal, orangeTotal, redTotal, grayTotal, invisibleTotal;
 
 		maxRow = canvasSizeX / 20;
-		System.out.println(maxRow);
 		maxCol = (int) ((int) canvasSizeY * .60);
 		maxCol = (maxCol / 30);
 		totalBricks = maxRow * maxCol;
 
 		if (difficulty.equals("easy")) {
-			blueMix = .5;
-			greenMix = .3;
-			orangeMix = .1;
+			blueMix = .2;
+			greenMix = .15;
+			orangeMix = .10;
 			redMix = .05;
 			grayMix = 0;
-			invisibleMix = .05;
+			invisibleMix = .20;
 		}
 
 		else if (difficulty.equals("medium")) {
-			blueMix = .25;
-			greenMix = .2;
-			orangeMix = .25;
-			redMix = .1;
-			grayMix = .1;
-			invisibleMix = .1;
+			blueMix = .125;
+			greenMix = .1;
+			orangeMix = .125;
+			redMix = .075;
+			grayMix = .075;
+			invisibleMix = .3;
 		}
 
 		else {
 			blueMix = .1;
 			greenMix = .1;
-			orangeMix = .4;
-			redMix = .225;
+			orangeMix = .3;
+			redMix = .175;
 			grayMix = .125;
-			invisibleMix = .05;
+			invisibleMix = .4;
 		}
 
 		blueTotal = (int) Math.round(blueMix * totalBricks);
@@ -79,11 +81,11 @@ public class BrickMaker extends JPanel {
 			yBound = (int) Math.round(y);
 			xBound = canvasSizeX - 20;
 		} else if (level == 2) {
-			double y = .5 * canvasSizeY;
+			double y = .45 * canvasSizeY;
 			yBound = (int) Math.round(y);
 			xBound = canvasSizeX - 20;
 		} else {
-			double y = .65 * canvasSizeY;
+			double y = .60 * canvasSizeY;
 			yBound = (int) Math.round(y);
 			xBound = canvasSizeX - 20;
 		}
@@ -92,7 +94,7 @@ public class BrickMaker extends JPanel {
 			for (int x = 0; x <= xBound; x += 20) {
 				boolean found = false;
 				while (found == false) {
-					num = generator.nextInt(6);
+					num = generator.nextInt(7);
 					if (num == 0 && blueTotal > 0) {
 						bucket.add(new BlueBricks(x, y, difficulty));
 						blueTotal--;
@@ -113,7 +115,7 @@ public class BrickMaker extends JPanel {
 						bucket.add(new GrayBricks(x, y, difficulty));
 						grayTotal--;
 						found = true;
-					} else if (num == 4 && invisibleTotal > 0) {
+					} else if ((num == 5 || num == 6) && invisibleTotal > 0) {
 						bucket.add(new InvisibleBricks(x, y, difficulty));
 						invisibleTotal--;
 						found = true;
@@ -142,7 +144,7 @@ public class BrickMaker extends JPanel {
 		return bucket;
 	}
 
-	public void paint(Graphics g) {
+	public void draw(Graphics g) {
 		for (Bricks bricks : bucket) {
 			if (bricks.getColor().contentEquals("Blue")) {
 				g.setColor(Color.BLACK);
@@ -175,7 +177,7 @@ public class BrickMaker extends JPanel {
 				g.setColor(new Color(124,252,0));
 				g.fillRect(bricks.getX(), bricks.getY(), bricks.getBrickWidth(), bricks.getBrickHeight());
 			}
-
+			
 		}
 	}
 
@@ -184,6 +186,7 @@ public class BrickMaker extends JPanel {
 		BrickMaker brickGame = new BrickMaker(600, 600, "hard", 3);
 		brickGame.makeBricks();
 		ArrayList<Bricks> brickListing = brickGame.getBucket();
+		System.out.println(brickListing.size());
 
 		for (Bricks bricks : brickListing) {
 			System.out.println(bricks.getColor() + " X: " + bricks.getX() + " Y: " + bricks.getY() + " Strength: "
@@ -213,16 +216,39 @@ public class BrickMaker extends JPanel {
 			}
 		}
 
-		System.out.println("B: " + b + " G: " + g + " O: " + o + " R: " + r + " Gr: " + gr + " In: " + i + " Total: "
-				+ brickGame.totalBricks);
+		//SoundPlayer sound = new SoundPlayer("02 Tum Se Hi.wav");
+		//SoundPlayer sound2 = new SoundPlayer("02 Pungi.wav");
+		
 
-		Paddle p = new Paddle(600, 600, "easy");
-		JFrame jf = new JFrame();
-		jf.setTitle("Bricks Test");
-		jf.setSize(600, 600);
-		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		jf.add(brickGame);
-		jf.setVisible(true);
+		/*
+		 * Ball ball = new Ball(600, 600, 8); */
+		 
+		 JFrame jf = new JFrame(); 
+		 jf.setTitle("Bricks Test"); 
+		 jf.setSize(600, 600);
+		 jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		 /*
+		 Paddle p = new Paddle(600, 600, "easy");
+		 JPanel mainPanel = new JPanel();
+		 JPanel brickPanel = new JPanel();
+		 JPanel paddlePanel = new JPanel();
+		 
+		 brickPanel.add(brickGame);
+		 paddlePanel.add(p);
+
+		  mainPanel.add(brickPanel);
+		  //mainPanel.add(paddlePanel);
+		  */
+		 
+		  jf.add(brickGame);
+		  jf.setLocationRelativeTo(null);
+		  jf.setVisible(true);
+		  //sound2.Sound();
+		 
+		  
+		  
+		
 
 	}
 }

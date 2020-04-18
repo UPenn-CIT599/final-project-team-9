@@ -185,6 +185,9 @@ public class MainMenu extends CustomMenuElements implements ActionListener{
         //set visible (keep as last line)
         window.setVisible(true);
         
+        SoundPlayer player = new SoundPlayer("Giant.wav");
+        player.Sound();
+        
     }
     
     
@@ -267,8 +270,9 @@ public class MainMenu extends CustomMenuElements implements ActionListener{
     }
     
     public static void main(String[] args){
-        
-      new MainMenu();
+      
+        new MainMenu();
+      
         
     }
 

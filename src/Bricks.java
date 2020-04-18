@@ -63,8 +63,8 @@ public class Bricks {
 	}
 
 	public void gotHit() {
-		if (strength-- <= 0) {
-			strength--;
+		strength--;
+		if (strength == 0) {
 			visible = false;
 		}
 	}

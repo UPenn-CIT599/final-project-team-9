@@ -60,6 +60,7 @@ public class Paddle extends JPanel implements ActionListener, KeyListener{
         g.setColor(Color.DARK_GRAY);
         g.fillRoundRect((int) x, (int) y, 
           (int) paddlewidth * (int) this.paddlesizemultiplier, (int) paddleheight, 15, 15);
+  
         
     }
     
@@ -125,6 +126,7 @@ public class Paddle extends JPanel implements ActionListener, KeyListener{
         jf.setSize(600, 600);
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jf.add(p);
+        
         jf.setVisible(true);
         
     }
