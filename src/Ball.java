@@ -1,7 +1,10 @@
+
+
 import java.awt.*;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.Ellipse2D;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -17,100 +20,65 @@ import java.awt.Color;
  * @author jacob. muizz, raheel
  */
 
-public class Ball extends JPanel implements ActionListener{
+public class Ball extends Shape{
     
-	private int posX;
-	private int posY;
-	private int xDir = -1;
-	private int yDir = -2;
-	private Timer timer;
-	private int delay;
-	
+    private int posX;
+    private int posY;
+    private int dx = -1;
+    private int dy = -2;
+    private final static int size = 10;
+    private JPanel panel;
+    
     /**
      * This constructor will create the ball for game play
      * Includes speed and position to start 
      */
-    public Ball(int posX, int posY, int delay){
-    	
-    	this.posX = posX;
-    	this.posY = posY;
-    	this.delay = delay;
-    	timer = new Timer (delay, this);
-    	timer.start();
-        
+    
+    //draw the ball
+    public Ball(int posX, int posY, Color color, JPanel panel){
+        super(new Ellipse2D.Double(posX, posY, size, size), color, true);
+        this.posX = posX;
+        this.posY = posY;
+        this.panel = panel;
+                        
     }
     
     public int getPosX() {
-		return posX;
-	}
-
-	public int getPosY() {
-		return posY;
-	}
-
-	@Override
-    public void actionPerformed(ActionEvent e) {
-   
-    	if(true) {
-    		//this will change the ball's direction once it intersects with paddle
-    		//need to update inputs to detect paddle; currently just arbitrary inputs
-    		if(new Rectangle(posX, posY, 20, 20).intersects(new Rectangle(250, 150, 100, 8))) {
-    			yDir = -yDir;
-    		}
-    		posX += xDir;
-    		posY += yDir;
-    		if(posX < 0) {
-    			xDir = -xDir;
-    		}
-    		if(posY < 0) {
-    			yDir = -yDir;
-    		}
-    		if(posX > 400) {
-    			xDir = -xDir;
-    		}
-    		
-    	}
-    	repaint();
+        return posX;
     }
-    
+
+    public int getPosY() {
+        return posY;
+    }
+
+   
     /**
      * This method will set position X and position Y for ball location 
      */
     public void setPositionBall(int posX, int posY) {
-    	this.posX = posX;
-    	this.posY = posY;
-    	
-    	
-    }
-    /**
-     * This method displays the ball
-     */
-    void display() {
-    	repaint();
-    	
+        this.posX = posX;
+        this.posY = posY;
+               
     }
     
-    /**
-     * This method creates the ball
-     */
-    public void paintComponent(Graphics g) {
-    	super.paintComponent(g);
-    	g.setColor(Color.PINK);
-    	g.fillOval(posX, posY, 20, 20);
-   
+    //move the ball
+    public void move() {
+        if(getX() + dx < 0) {
+            dx = 1;
+        }
+        if(getX() + getWidth() + dx > panel.getWidth()) {
+            dx = -1;
+        }
+        if(getY() + dy < 0) {
+            dy = 1;
+        }
+        if(getY() + getHeight() + dy > panel.getHeight()) {
+            dy = -1;
+        }
+        super.move(dx, dy);
     }
+  
     
-    public static void main(String[] args) {
-		JFrame frame = new JFrame("Ball");
-		frame.setVisible(true);
-		frame.setSize(500, 500);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		Ball ball = new Ball(200, 400, 10);
-		frame.add(ball);
-		ball.display();
-		
-		
-		
-	}
-	
+    
+
 }
