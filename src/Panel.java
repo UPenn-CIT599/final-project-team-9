@@ -8,6 +8,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class Panel extends JPanel{
@@ -23,6 +24,7 @@ public class Panel extends JPanel{
     private int lastMove;
     private ArrayList<Bricks> brickBucket;
     private SoundPlayer sound;
+ 
     
     
     public Panel(String difficulty, String username) {
@@ -39,12 +41,13 @@ public class Panel extends JPanel{
         
         sound = new SoundPlayer(level);
         sound.Sound();
+    
         
         timer = new javax.swing.Timer(5, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	
             	if((int)ball.getY()>(600+ball.getSize())) {
-            		ball = new Ball(200,450,Color.red, Panel.this);
+            		ball = new Ball(300,450,Color.red, Panel.this);
             		try {
 						Thread.sleep(3000);
 					} catch (InterruptedException e1) {
@@ -106,14 +109,24 @@ public class Panel extends JPanel{
             	bricks.deleteInvisibleBricks();
             	if(bricks.isGameOver()) {
             		level++;
-            		bricks = new BrickMaker(600, 600, difficulty, level);
-            		bricks.makeBricks();
-            		brickBucket.clear();
-            		brickBucket = bricks.getBucket();
-            		bricks.setIsGameOver(false);
-            		sound.stop();
-            		sound = new SoundPlayer(level);
-            		sound.Sound();
+            		if(level < 4) {
+            			try {
+    						Thread.sleep(3000);
+    					} catch (InterruptedException e1) {
+    						e1.printStackTrace();
+    					}
+            			bricks = new BrickMaker(600, 600, difficulty, level);
+                		bricks.makeBricks();
+                		brickBucket.clear();
+                		brickBucket = bricks.getBucket();
+                		bricks.setIsGameOver(false);
+                		sound.stop();
+                		sound = new SoundPlayer(level);
+                		sound.Sound();
+                		ball = new Ball(300,450,Color.red, Panel.this);
+                		
+            		}
+            		
             		//check level of game and move on
             		//if level 3, end game
             		
@@ -156,16 +169,44 @@ public class Panel extends JPanel{
     
  
     public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D) g;
-        ball.draw(g2);
-        paddle.draw(g2);
-        bricks.draw(g2);
-        g2.setFont(new Font("Helvetica",Font.BOLD,20));
-        g2.setColor(Color.black);
-        g2.drawString(username + " - Level " + level + " - Score " + score + " - Lives " + lives, 0, 600);
+    	Graphics2D g2 = (Graphics2D) g;
+    	if(level == 4) {
+        	g2.setFont(new Font("Helvetica",Font.BOLD,42));
+            g2.setColor(Color.black);
+            if(checkHighScore()) {
+            	g2.drawString("New High Score!!!", 300, 300);
+            	g2.drawString("Close Window To Return To Main Menu", 300, 400);
+            }
+            else {
+            	g2.drawString("Close Window To Return To Main Menu", 300, 300);
+            }
+        
+        }
+        else {
+        	super.paintComponent(g);
+            ball.draw(g2);
+            paddle.draw(g2);
+            bricks.draw(g2);
+            g2.setFont(new Font("Helvetica",Font.BOLD,20));
+            g2.setColor(Color.black);
+            g2.drawString(username + " - Level " + level + " - Score " + score + " - Lives " + lives, 0, 600);
+        }
+    	
         
         
     }
+    
+    
+    private boolean checkHighScore() {
+    	Player currentPlayer = new Player(username, score);
+    	HighScore highScore = new HighScore(currentPlayer);
+    	highScore.extractHighScore();
+    	if(highScore.checkHighScore()) {
+    		highScore.writeScore();
+    		return true;
+    	}
+    	return false;
+    }
+   
 
 }
