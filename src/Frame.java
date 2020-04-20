@@ -13,7 +13,7 @@ public class Frame extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(framewidth, frameheight);
         add(panel);
-        setTitle("Test");
+        setTitle(username + "'s Brick Breaker Game");
         setLocationRelativeTo(null);
         setVisible(true);
         setResizable(false);

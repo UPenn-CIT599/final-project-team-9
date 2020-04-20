@@ -12,8 +12,20 @@ public class SoundPlayer {
 	private String filename;
 	private Clip clip;
 	
-	public SoundPlayer(String filename) {
-		this.filename = filename;
+	public SoundPlayer(int level) {
+		if(level == 0) {
+			this.filename = "Neck_Pillow.wav";
+		}
+		else if(level == 1) {
+			this.filename = "Giant.wav";
+		}
+		else if(level == 2) {
+			this.filename = "Kul_Riddim.wav";
+		}
+		else {
+			this.filename = "Night Owl.wav";
+		}
+		
 	}
 
 	public void Sound() {

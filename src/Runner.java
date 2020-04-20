@@ -35,10 +35,11 @@ public class Runner {
     	//FOLLOW UPS:
     	//fix paddle movement & ball bounce off paddle
     	//need to fix ball bounce off bricks
-    	//level up
+    	//level up - DONE
     	//add game ending when you beat level 3 and run out of lives
     	//high score calculator + redirect to main menu
-    	//sound needs to stop when moving from level and level to level
+    	//sound needs to stop when moving from main menu to game and level and level to level - DONE
+    	//gray bricks need to be fixed for boxing in potential layout
     	
 
     }

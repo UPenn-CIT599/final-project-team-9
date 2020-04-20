@@ -22,6 +22,7 @@ public class Panel extends JPanel{
     private int level = 1;
     private int lastMove;
     private ArrayList<Bricks> brickBucket;
+    private SoundPlayer sound;
     
     
     public Panel(String difficulty, String username) {
@@ -36,20 +37,8 @@ public class Panel extends JPanel{
         bricks.makeBricks();
         brickBucket = bricks.getBucket();
         
-        SoundPlayer sound;
-        
-        if(level == 1) {
-        	sound = new SoundPlayer("Giant.wav");
-        }
-        else if(level == 2) {
-        	sound = new SoundPlayer("Kul_Riddim.wav");
-        }
-        else {
-        	sound = new SoundPlayer("Night Owl.wav");
-        }
+        sound = new SoundPlayer(level);
         sound.Sound();
-      		
-        
         
         timer = new javax.swing.Timer(5, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -117,11 +106,14 @@ public class Panel extends JPanel{
             	bricks.deleteInvisibleBricks();
             	if(bricks.isGameOver()) {
             		level++;
-            		BrickMaker bricksNew = new BrickMaker(600, 600, difficulty, level);
-            		bricksNew.makeBricks();
+            		bricks = new BrickMaker(600, 600, difficulty, level);
+            		bricks.makeBricks();
             		brickBucket.clear();
-            		brickBucket = bricksNew.getBucket();
+            		brickBucket = bricks.getBucket();
             		bricks.setIsGameOver(false);
+            		sound.stop();
+            		sound = new SoundPlayer(level);
+            		sound.Sound();
             		//check level of game and move on
             		//if level 3, end game
             		

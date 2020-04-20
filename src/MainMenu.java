@@ -86,7 +86,7 @@ public class MainMenu extends CustomMenuElements implements ActionListener{
         });
 
         //add music
-        introMusic = new SoundPlayer("Neck_Pillow.wav");
+        introMusic = new SoundPlayer(0);
         introMusic.Sound();
         
         //add ball bouncing around in the background
