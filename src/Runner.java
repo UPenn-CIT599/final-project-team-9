@@ -38,7 +38,7 @@ public class Runner {
     	//level up
     	//add game ending when you beat level 3 and run out of lives
     	//high score calculator + redirect to main menu
-    	//sound needs to stop when moving from main menu to level and level to level
+    	//sound needs to stop when moving from level and level to level
     	
 
     }

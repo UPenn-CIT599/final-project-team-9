@@ -41,6 +41,7 @@ public class MainMenu extends CustomMenuElements implements ActionListener{
     private String playerName, gameDifficulty;
     private File highscoreFile = new File("high_score_list.txt");
     private boolean isRunning = true;
+    private SoundPlayer introMusic;
 
     //method for ball display on menu 
     
@@ -85,7 +86,7 @@ public class MainMenu extends CustomMenuElements implements ActionListener{
         });
 
         //add music
-        SoundPlayer introMusic = new SoundPlayer("Neck_Pillow.wav");
+        introMusic = new SoundPlayer("Neck_Pillow.wav");
         introMusic.Sound();
         
         //add ball bouncing around in the background
@@ -212,6 +213,7 @@ public class MainMenu extends CustomMenuElements implements ActionListener{
                 this.gameDifficulty = "easy";
                 this.playerName = input;
                 this.isRunning = false;
+                introMusic.stop();
                 window.dispose(); 
                 //method to launch new game with easy
             }
@@ -228,6 +230,7 @@ public class MainMenu extends CustomMenuElements implements ActionListener{
                 this.gameDifficulty = "medium";
                 this.playerName = input;
                 this.isRunning = false;
+                introMusic.stop();
                 window.dispose(); 
                 //method to launch new game with easy
             }
@@ -244,6 +247,7 @@ public class MainMenu extends CustomMenuElements implements ActionListener{
                 this.gameDifficulty = "hard";
                 this.playerName = input;
                 this.isRunning = false;
+                introMusic.stop();
                 window.dispose(); 
                 //method to launch new game with easy
             }

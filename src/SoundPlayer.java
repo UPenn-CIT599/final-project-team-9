@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 public class SoundPlayer {
 
 	private String filename;
+	private Clip clip;
 	
 	public SoundPlayer(String filename) {
 		this.filename = filename;
@@ -24,10 +25,10 @@ public class SoundPlayer {
 				AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicLocation);
 				AudioFormat format = audioInput.getFormat();
 				DataLine.Info info = new DataLine.Info(Clip.class, format);
-				Clip clip = (Clip) AudioSystem.getLine(info);
-				clip.open(audioInput);
-				clip.start();
-				clip.loop(Clip.LOOP_CONTINUOUSLY);
+				this.clip = (Clip) AudioSystem.getLine(info);
+				this.clip.open(audioInput);
+				this.clip.start();
+				this.clip.loop(Clip.LOOP_CONTINUOUSLY);
 
 				/*JOptionPane.showMessageDialog(null, "Press OK to pause");
 				long clipTimePosition = clip.getMicrosecondPosition();
@@ -44,5 +45,8 @@ public class SoundPlayer {
 			}
 
 		}
+	}
+	public void stop() {
+		this.clip.stop();
 	}
 }
