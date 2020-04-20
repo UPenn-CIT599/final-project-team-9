@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
 
 import javax.swing.JPanel;
@@ -10,7 +11,7 @@ public class Paddle extends Shape{
     private static int starty = 500;
     private static int width = 75;
     private static int height = 10;
-    private int speed = 25;
+    private int speed = 35;
 
     
     public Paddle(Color color, JPanel panel) {
@@ -19,7 +20,8 @@ public class Paddle extends Shape{
     }
     
     public void move (int dx) {
-        if((getX() + dx >= 0) && (getX() + dx + width <= panel.getWidth())){
+    	//come back to make sure left side of paddle is shown on frame
+        if((getX() + dx + (width/2) >= 0) && (getX() + dx + width <= panel.getWidth())){
             move(dx,0);
         }
     }

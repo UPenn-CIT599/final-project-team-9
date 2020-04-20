@@ -4,13 +4,43 @@
  *
  */
 public class Runner {
+	
     
     /**
      * This method runs the entire program until user decides to exit 
      * @param args
      */
     public static void main(String[] args) {
-        
+    	String username;
+    	String difficulty;
+    	boolean mainMenuRunning = true;
+
+    	MainMenu mainMenu = new MainMenu();
+
+    	mainMenuRunning = mainMenu.getIsRunning();
+
+    	while(mainMenuRunning) {
+    		try {
+    			Thread.sleep(3000);
+    			mainMenuRunning = mainMenu.getIsRunning();
+    		} catch (InterruptedException e1) {
+    			e1.printStackTrace();
+    		}
+    	}
+
+    	difficulty = mainMenu.getDifficulty();
+    	username = mainMenu.getUserName();
+    	Frame frame = new Frame(username, difficulty);
+    	
+    	//FOLLOW UPS:
+    	//fix paddle movement & ball bounce off paddle
+    	//need to fix ball bounce off bricks
+    	//level up
+    	//add game ending when you beat level 3 and run out of lives
+    	//high score calculator + redirect to main menu
+    	//sound needs to stop when moving from main menu to level and level to level
+    	
+
     }
 
 }

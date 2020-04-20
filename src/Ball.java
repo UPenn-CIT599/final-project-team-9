@@ -28,6 +28,7 @@ public class Ball extends Shape{
     private int dy = -1;
     private final static int size = 10;
     private JPanel panel;
+    private int speed = 1;
     
     /**
      * This constructor will create the ball for game play
@@ -54,6 +55,22 @@ public class Ball extends Shape{
     
     public int getSize() {
     	return size;
+    }
+    
+    public int getSpeed() {
+    	return speed;
+    }
+    
+    public void setSpeed(int speed) {
+    	this.speed = speed;
+    }
+    
+    public int getDx() {
+    	return dx;
+    }
+    
+    public int getDy() {
+    	return dy;
     }
    
     /**
@@ -86,19 +103,19 @@ public class Ball extends Shape{
   
     
     public void right() {
-    	dx = -dx;
+    	dx = 1 * speed;
     }
     
     public void left() {
-    	dx = -dx;
+    	dx = -1 * speed;
     }
     
     public void up() {
-    	dy = -dy;
+    	dy = -1 * speed;
     }
     
     public void down() {
-    	dy = -dy;
+    	dy = 1 * speed;
     }
 
 }

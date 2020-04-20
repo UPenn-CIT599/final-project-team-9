@@ -10,12 +10,14 @@ public class BrickMaker {
 	private int canvasSizeX, canvasSizeY, maxRow, maxCol, totalBricks, level;
 	private String difficulty;
 	private ArrayList<Bricks> bucket = new ArrayList<Bricks>();
+	private boolean gameOver;
 
 	public BrickMaker(int canvasSizeX, int canvasSizeY, String difficulty, int level) {
 		this.canvasSizeX = canvasSizeX;
 		this.canvasSizeY = canvasSizeY;
 		this.difficulty = difficulty;
 		this.level = level;
+		this.gameOver = false;
 	}
 
 	public void makeBricks() {
@@ -26,7 +28,8 @@ public class BrickMaker {
 		maxCol = (int) ((int) canvasSizeY * .60);
 		maxCol = (maxCol / 20);
 		totalBricks = maxRow * maxCol;
-
+		
+		
 		if (difficulty.equals("easy")) {
 			blueMix = .2;
 			greenMix = .15;
@@ -145,10 +148,15 @@ public class BrickMaker {
 		}
 		
 		if(counter == 0 ) {
-			return true;
+			gameOver = true;
+			return gameOver;
 		}
 		
-		return false;
+		return gameOver;
+	}
+	
+	public void setIsGameOver(boolean t) {
+		this.gameOver = t;
 	}
 
 	

@@ -3,15 +3,15 @@ import javax.swing.JFrame;
 
 public class Frame extends JFrame{
     
-    private final int frameheight = 600;
+    private final int frameheight = 650;
     private final int framewidth = 600;
-
-    private Panel panel = new Panel(3, "hard");
+    private Panel panel;
     
-    public Frame() {
+    public Frame(String username, String difficulty) {
         
+    	panel = new Panel(difficulty, username);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(frameheight, framewidth);
+        setSize(framewidth, frameheight);
         add(panel);
         setTitle("Test");
         setLocationRelativeTo(null);
@@ -21,11 +21,6 @@ public class Frame extends JFrame{
         
     }
     
-    public static void main(String[] args) {
-    	
-    	Frame frame = new Frame();
-        
-    }
     
     
 }
