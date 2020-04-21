@@ -55,7 +55,7 @@ public class Shape {
         return shape.getWidth();
     }
     
-    public void move (int dx, int dy) {
+    public void move (double dx, double dy) {
         shape.setFrame(getX() + dx, getY()+ dy, getWidth(), getHeight());
     }
 

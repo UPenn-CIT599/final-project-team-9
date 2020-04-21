@@ -24,8 +24,8 @@ public class Ball extends Shape{
     
     private int posX;
     private int posY;
-    private int dx = -1;
-    private int dy = -1;
+    private double dx = -1;
+    private double dy = -1;
     private final static int size = 10;
     private JPanel panel;
     private int speed = 1;
@@ -65,11 +65,15 @@ public class Ball extends Shape{
     	this.speed = speed;
     }
     
-    public int getDx() {
+    public double getDx() {
     	return dx;
     }
     
-    public int getDy() {
+    public void setDx(double dx) {
+        this.dx = dx;
+    }
+    
+    public double getDy() {
     	return dy;
     }
    
@@ -117,5 +121,6 @@ public class Ball extends Shape{
     public void down() {
     	dy = 1 * speed;
     }
+
 
 }

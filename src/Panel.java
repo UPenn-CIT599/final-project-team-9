@@ -58,14 +58,22 @@ public class Panel extends JPanel{
             	}
             	if(ball.intersection(paddle) || paddle.intersection(ball)) {
             		ball.up();
-            		if ((ball.getY() + (ball.getHeight())) < paddle.getY()) {
+            		//getter/setter for dx
+                    //adjust the x speed by +/-0.5 if hit on the edges
+                    if(ball.getX() < paddle.getX() + paddle.getWidth()/4) {
+                        ball.setDx(ball.getDx() - 0.5);
+                    }
+                    if(ball.getX() < (paddle.getX() + paddle.getWidth()) && ball.getX() > (paddle.getX() + paddle.getWidth() /4)) {
+                        ball.setDx(ball.getDx() + 0.5);
+                    }
+                    /*if ((ball.getY() + (ball.getHeight())) < paddle.getY()) {
             			if(lastMove > 0) {
             				ball.right();
             			}
             			else {
             				ball.left();
             			}
-            		}
+            		}*/
             		/*
             		if(ball.getY() + (ball.getHeight() / 2) > paddle.getY() - (paddle.getHeight() / 2) + 1) {
             			System.out.println("Hi Raheel");
@@ -85,16 +93,7 @@ public class Panel extends JPanel{
             		
             		*/
             		
-            		/*
-            		//getter/setter for dx
-                    //adjust the x speed by +/-0.5 if hit on the edges
-                    if(ball.getX() < paddle.getX() + paddle.getWidth()/4) {
-                        ball.setdx(ball.getdx() - 0.5);
-                    }
-                    if(ball.getX() < (paddle.getX() + paddle.getWidth()) && ball.getX() > (paddle.getX() + paddle.getWidth() /4)) {
-                        ball.setdx(ball.getdx() + 0.5);
-                    }
-            		*/
+            		
             	} 
             	
 

@@ -19,7 +19,7 @@ public class Paddle extends Shape{
             this.panel = panel;
     }
     
-    public void move (int dx) {
+    public void move (double dx) {
     	//come back to make sure left side of paddle is shown on frame
         if((getX() + dx + (width/2) >= 0) && (getX() + dx + width <= panel.getWidth())){
             move(dx,0);
