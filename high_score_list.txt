@@ -2,10 +2,10 @@ Rank Name Score
 1 moo 998
 2 moomoo 280
 3 playaplaya 125
-4 Raheel 120
-5 noor 103
-6 Jacob 100
-7 Testing 95
-8 Testing 95
-9 Muizz 90
-10 muizz 86
+4 scoreCheck 125
+5 naur 124
+6 naur 124
+7 Raheel 120
+8 noor 103
+9 scorecheck2 103
+10 Jacob 100

@@ -5,7 +5,6 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
-import javax.swing.JOptionPane;
 
 public class SoundPlayer {
 
@@ -14,7 +13,10 @@ public class SoundPlayer {
 	
 	public SoundPlayer() {
 		
-		if(Panel.level == 1) {
+		if(Panel.level == 0) {
+			this.filename = "Neck_Pillow.wav";
+		}
+		else if(Panel.level == 1) {
 			this.filename = "Giant.wav";
 		}
 		else if(Panel.level == 2) {
@@ -22,9 +24,6 @@ public class SoundPlayer {
 		}
 		else if(Panel.level == 3) { 
 			this.filename = "Night Owl.wav";
-		}
-		else if(Panel.level == 0) {
-			this.filename = "Neck_Pillow.wav";
 		}
 		else if(Panel.level == 4) {
 			this.filename = "Big_Explosion.wav";

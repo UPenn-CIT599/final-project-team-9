@@ -18,7 +18,7 @@ public class Panel extends JPanel {
 	private Paddle paddle;
 	private BrickMaker bricks;
 	public static int level = 1, lives = 3, score;
-	private int lastMove;
+	private int lastMove, hitCounter;
 	private ArrayList<Bricks> brickBucket;
 	private SoundPlayer backgoundMusic, brickExplosion, gameOver, lifeOver, winMusic, levelUp;
 
@@ -29,6 +29,7 @@ public class Panel extends JPanel {
 		bricks = new BrickMaker(600, 600);
 		bricks.makeBricks();
 		brickBucket = bricks.getBucket();
+		hitCounter = 0;
 
 		createMusic();
 		
@@ -36,121 +37,15 @@ public class Panel extends JPanel {
 		timer = new javax.swing.Timer(5, new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				if ((int) ball.getY() > (600 + ball.getSize())) {
-					ball = new Ball(300, 450, Color.red, Panel.this);
-					lives--;
-					if (lives == 0) {
-						backgoundMusic.stop();
-						gameOver.playSoundEffect();
-					}
-					else {
-						lifeOver.playSoundEffect();
-						try {
-							Thread.sleep(3000);
-						} catch (InterruptedException e1) {
-							e1.printStackTrace();
-						}
-					}
-					
-					
-
-				}
-				if (ball.intersection(paddle) || paddle.intersection(ball)) {
-					ball.up();
-					if (ball.getX() < paddle.getX() + paddle.getWidth() / 8) {
-						ball.setDx(ball.getDx() - 0.5);
-					}
-					if (ball.getX() < (paddle.getX() + paddle.getWidth())
-							&& ball.getX() > (paddle.getX() + paddle.getWidth() / 8)) {
-						ball.setDx(ball.getDx() + 0.5);
-					}
-
-				}
-
-				for (Bricks bricks : brickBucket) {
-					if (ball.intersection(bricks.getRect()) || bricks.getRect().intersects(ball.getRect())) {
-						if (bricks.getColor().equals("Gray") == false) {
-							bricks.gotHit();
-							score++;
-						}
-						if (ball.getX() > 0) {
-							if (ball.getPosY() > bricks.getY()) {
-								ball.down();
-							} else if (ball.getPosY() < bricks.getY()) {
-								ball.up();
-							}
-							if (ball.getDx() > -1) {
-								ball.setDx(ball.getDx() - 0.5);
-							}
-
-						} else if (ball.getX() < 0) {
-							if (ball.getPosY() > bricks.getY()) {
-								ball.down();
-							} else if (ball.getPosY() < bricks.getY()) {
-								ball.up();
-							}
-							if (ball.getDx() < 1) {
-								ball.setDx(ball.getDx() + 0.5);
-							}
-
-						}
-
-					}
-				}
+				lifeLostChecker();
+				paddleInteraction();
+				brickInteraction();
 				ball.move();
 				bricks.deleteInvisibleBricks();
-				if (bricks.isGameOver()) {
-					level++;
-
-					if (level < 4) {
-						levelUp.playSoundEffect();
-						repaint();
-						try {
-							Thread.sleep(6000);
-						} catch (InterruptedException e1) {
-							e1.printStackTrace();
-						}
-						brickBucket.clear();
-						bricks = new BrickMaker(600, 600);
-						bricks.makeBricks();
-						brickBucket = bricks.getBucket();
-						backgoundMusic.stop();
-						backgoundMusic = new SoundPlayer();
-						backgoundMusic.playSound();
-						ball = new Ball(300, 450, Color.red, Panel.this);
-
-					} else {
-						backgoundMusic.stop();
-						if(level == 4) {
-							winMusic.playSoundEffect();
-							
-						}
-						
-					}
-
-					
-
-				}
-				if(score % 30 == 0 && level == 1 && score != 0) {
-					bricks.hitAll();
-					brickExplosion.playSoundEffect();
-					score++;
-				}
-				else if(score % 40 == 0 && level == 2 && score != 0) {
-					bricks.hitAll();
-					brickExplosion.playSoundEffect();
-					score++;
-				}
-				else if(score % 50 == 0 && level == 3 && score != 0) {
-					bricks.hitAll();
-					brickExplosion.playSoundEffect();
-					score++;
-				}
-				if (level == 4 || lives == 0) {
-					repaint();
-					timer.stop();
-				}
-
+				levelUpChecker();
+				brickDestroyer();
+				wallDestroyer();
+				gameOverChecker();
 				repaint();
 			}
 
@@ -256,6 +151,166 @@ public class Panel extends JPanel {
 		levelUp = new SoundPlayer();
 		level = 1;
 		
+	}
+	
+	private void paddleInteraction() {
+		if (ball.intersection(paddle) || paddle.intersection(ball)) {
+			ball.up();
+			if (ball.getX() < paddle.getX() + paddle.getWidth() / 8) {
+				ball.setDx(ball.getDx() - 0.5);
+			}
+			if (ball.getX() < (paddle.getX() + paddle.getWidth())
+					&& ball.getX() > (paddle.getX() + paddle.getWidth() / 8)) {
+				ball.setDx(ball.getDx() + 0.5);
+			}
+
+		}
+	}
+	
+	private void brickInteraction() {
+		for (Bricks bricks : brickBucket) {
+			if (ball.intersection(bricks.getRect()) || bricks.getRect().intersects(ball.getRect())) {
+				hitCounter++;
+				if (bricks.getColor().equals("Gray") == false) {
+					bricks.gotHit();
+					score++;
+					
+				}
+				if (ball.getX() > 0) {
+					if (ball.getPosY() > bricks.getY()) {
+						ball.down();
+					} else if (ball.getPosY() < bricks.getY()) {
+						ball.up();
+					}
+					if (ball.getDx() > -1) {
+						ball.setDx(ball.getDx() - 0.5);
+					}
+
+				} else if (ball.getX() < 0) {
+					if (ball.getPosY() > bricks.getY()) {
+						ball.down();
+					} else if (ball.getPosY() < bricks.getY()) {
+						ball.up();
+					}
+					if (ball.getDx() < 1) {
+						ball.setDx(ball.getDx() + 0.5);
+					}
+
+				}
+
+			}
+		}
+	}
+	
+	private void lifeLostChecker() {
+		if ((int) ball.getY() > (600 + ball.getSize())) {
+			ball = new Ball(300, 450, Color.red, Panel.this);
+			lives--;
+			if (lives == 0) {
+				backgoundMusic.stop();
+				gameOver.playSoundEffect();
+			}
+			else {
+				lifeOver.playSoundEffect();
+				try {
+					Thread.sleep(3000);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	private void levelUpChecker() {
+		if (bricks.isGameOver()) {
+			level++;
+			hitCounter = 0;
+
+			if (level < 4) {
+				repaint();
+				backgoundMusic.stop();
+				levelUp.playSoundEffect();
+				try {
+					Thread.sleep(6000);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+				brickBucket.clear();
+				bricks = new BrickMaker(600, 600);
+				bricks.makeBricks();
+				brickBucket = bricks.getBucket();
+				
+				backgoundMusic = new SoundPlayer();
+				backgoundMusic.playSound();
+				ball = new Ball(300, 450, Color.red, Panel.this);
+
+			} else {
+				backgoundMusic.stop();
+				if(level == 4) {
+					winMusic.playSoundEffect();
+					
+				}
+				
+			}
+		}
+	}
+	
+	private void brickDestroyer() {
+		if(hitCounter % 30 == 0 && level == 1 && hitCounter != 0) {
+			bricks.hitAll();
+			brickExplosion.playSoundEffect();
+			hitCounter++;
+		}
+		else if(hitCounter % 40 == 0 && level == 2 && hitCounter != 0) {
+			bricks.hitAll();
+			brickExplosion.playSoundEffect();
+			hitCounter++;
+		}
+		else if(hitCounter % 50 == 0 && level == 3 && hitCounter != 0) {
+			bricks.hitAll();
+			brickExplosion.playSoundEffect();
+			hitCounter++;
+		}
+	}
+	
+	private void wallDestroyer() {
+		if(hitCounter % 100 == 0 && level == 1 && hitCounter != 0 && MainMenu.getDifficulty().toLowerCase().equals("medium")) {
+			bricks.destroyWall();
+			brickExplosion.playSoundEffect();
+			hitCounter++;
+		}
+		else if(hitCounter % 115 == 0 && level == 2 && hitCounter != 0 && MainMenu.getDifficulty().toLowerCase().equals("medium")) {
+			bricks.destroyWall();
+			brickExplosion.playSoundEffect();
+			hitCounter++;
+		}
+		else if(hitCounter % 130 == 0 && level == 3 && hitCounter != 0 && MainMenu.getDifficulty().toLowerCase().equals("medium")) {
+			bricks.destroyWall();
+			brickExplosion.playSoundEffect();
+			hitCounter++;
+		}
+		else if(hitCounter % 115 == 0 && level == 1 && hitCounter != 0 && MainMenu.getDifficulty().toLowerCase().equals("hard")) {
+			bricks.destroyWall();
+			brickExplosion.playSoundEffect();
+			hitCounter++;
+		}
+		else if(hitCounter % 130 == 0 && level == 2 && hitCounter != 0 && MainMenu.getDifficulty().toLowerCase().equals("hard")) {
+			bricks.destroyWall();
+			brickExplosion.playSoundEffect();
+			hitCounter++;
+		}
+		else if(hitCounter % 145 == 0 && level == 3 && hitCounter != 0 && MainMenu.getDifficulty().toLowerCase().equals("hard")) {
+			bricks.destroyWall();
+			brickExplosion.playSoundEffect();
+			hitCounter++;
+		}
+		
+	}
+	private void gameOverChecker() {
+		if (level == 4 || lives == 0) {
+			repaint();
+			timer.stop();
+		}
 	}
 
 }

@@ -160,6 +160,14 @@ public class BrickMaker {
 			}
 		}
 	}
+	
+	public void destroyWall() {
+		for (Bricks bricks : bucket) {
+			if(bricks.getColor().contentEquals("Gray")) {
+				bricks.setVisible(false);
+			}
+		}
+	}
 	public void setIsGameOver(boolean t) {
 		this.gameOver = t;
 	}

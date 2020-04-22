@@ -47,9 +47,6 @@ public class Runner {
 		// Critical: play game on med or hard: weird ball/brick interaction disappears behind need to fix
 		// Critical: check the name field it accepts "please enter your name" as a valid input
 		// follow-up on paddle/brick interactions - fix as needed
-		// paddle movement - goes off screen - should touch edges - right is far too
-		// left - left goes off screen
-		// gray bricks need to be fixed for boxing in potential layout
 		// Create JUnit tests (14 more)
 		// Create a ReadMe doc
 
