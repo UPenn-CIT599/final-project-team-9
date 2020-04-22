@@ -203,7 +203,6 @@ public class MainMenu extends CustomMenuElements implements ActionListener {
 
 		if (action.equals("Easy")) {
 			if (input.equalsIgnoreCase("") || input.equalsIgnoreCase("Please enter your name")) {
-
 				nameReminder.setVisible(true);
 				nameField.setText("Please enter your name");
 			} else {
@@ -217,9 +216,9 @@ public class MainMenu extends CustomMenuElements implements ActionListener {
 				// method to launch new game with easy
 			}
 
+
 		} else if (action.equals("Medium")) {
 			if (input.equalsIgnoreCase("") || input.equalsIgnoreCase("Please enter your name")) {
-
 				nameReminder.setVisible(true);
 				nameField.setText("Please enter your name");
 			}
@@ -237,7 +236,6 @@ public class MainMenu extends CustomMenuElements implements ActionListener {
 
 		} else if (action.equals("Hard")) {
 			if (input.equalsIgnoreCase("") || input.equalsIgnoreCase("Please enter your name")) {
-
 				nameReminder.setVisible(true);
 				nameField.setText("Please enter your name");
 			}
