@@ -78,12 +78,12 @@ public class Bricks {
 
 class BlueBricks extends Bricks {
 
-	BlueBricks(int x, int y, String difficulty) {
+	BlueBricks(int x, int y) {
 		super(x, y, "Blue");
 
-		if (difficulty.equals("easy")) {
+		if (MainMenu.getDifficulty().toLowerCase().equals("easy")) {
 			super.setStrength(1);
-		} else if (difficulty.equals("medium")) {
+		} else if (MainMenu.getDifficulty().toLowerCase().equals("medium")) {
 			super.setStrength(2);
 		} else {
 			super.setStrength(3);
@@ -94,12 +94,12 @@ class BlueBricks extends Bricks {
 
 class GreenBricks extends Bricks {
 
-	GreenBricks(int x, int y, String difficulty) {
+	GreenBricks(int x, int y) {
 		super(x, y, "Green");
 
-		if (difficulty.equals("easy")) {
+		if (MainMenu.getDifficulty().toLowerCase().equals("easy")) {
 			super.setStrength(2);
-		} else if (difficulty.equals("medium")) {
+		} else if (MainMenu.getDifficulty().toLowerCase().equals("medium")) {
 			super.setStrength(3);
 		} else {
 			super.setStrength(4);
@@ -109,12 +109,12 @@ class GreenBricks extends Bricks {
 
 class OrangeBricks extends Bricks {
 
-	OrangeBricks(int x, int y, String difficulty) {
+	OrangeBricks(int x, int y) {
 		super(x, y, "Orange");
 
-		if (difficulty.equals("easy")) {
+		if (MainMenu.getDifficulty().toLowerCase().equals("easy")) {
 			super.setStrength(3);
-		} else if (difficulty.equals("medium")) {
+		} else if (MainMenu.getDifficulty().toLowerCase().equals("medium")) {
 			super.setStrength(4);
 		} else {
 			super.setStrength(5);
@@ -124,12 +124,12 @@ class OrangeBricks extends Bricks {
 
 class RedBricks extends Bricks {
 
-	RedBricks(int x, int y, String difficulty) {
+	RedBricks(int x, int y) {
 		super(x, y, "Red");
 
-		if (difficulty.equals("easy")) {
+		if (MainMenu.getDifficulty().toLowerCase().equals("easy")) {
 			super.setStrength(4);
-		} else if (difficulty.equals("medium")) {
+		} else if (MainMenu.getDifficulty().toLowerCase().equals("medium")) {
 			super.setStrength(5);
 		} else {
 			super.setStrength(6);
@@ -139,7 +139,7 @@ class RedBricks extends Bricks {
 
 class GrayBricks extends Bricks {
 
-	GrayBricks(int x, int y, String difficulty) {
+	GrayBricks(int x, int y) {
 		super(x, y, "Gray");
 
 	}
@@ -147,7 +147,7 @@ class GrayBricks extends Bricks {
 
 class InvisibleBricks extends Bricks {
 
-	InvisibleBricks(int x, int y, String difficulty) {
+	InvisibleBricks(int x, int y) {
 		super(x, y, "Invisible");
 		super.setVisible(false);
 	}

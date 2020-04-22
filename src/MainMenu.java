@@ -84,7 +84,9 @@ public class MainMenu extends CustomMenuElements implements ActionListener {
 		});
 
 		// add music
-		introMusic = new SoundPlayer(0);
+		Panel.setLevel(0);
+		introMusic = new SoundPlayer();
+		Panel.setLevel(1);
 		introMusic.playSound();
 
 		// add ball bouncing around in the background
@@ -93,21 +95,21 @@ public class MainMenu extends CustomMenuElements implements ActionListener {
 		JPanel easyButtonPanel = CustomPanel(100, 400, 160, 50, Color.GREEN);
 
 		// easy button
-		JButton easyButton = CustomButton("easy", "Helvetica", "plain", 25, Color.WHITE);
+		JButton easyButton = CustomButton("Easy", "Helvetica", "plain", 25, Color.WHITE);
 		easyButton.addActionListener(this);
 
 		// medium button panel
 		JPanel medButtonPanel = CustomPanel(300, 400, 160, 50, Color.ORANGE);
 
 		// medium button
-		JButton medButton = CustomButton("medium", "Helvetica", "plain", 25, Color.WHITE);
+		JButton medButton = CustomButton("Medium", "Helvetica", "plain", 25, Color.WHITE);
 		medButton.addActionListener(this);
 
 		// hard button panel
 		JPanel hardButtonPanel = CustomPanel(500, 400, 160, 50, Color.red);
 
 		// hard button
-		JButton hardButton = CustomButton("hard", "Helvetica", "plain", 25, Color.WHITE);
+		JButton hardButton = CustomButton("Hard", "Helvetica", "plain", 25, Color.WHITE);
 		hardButton.addActionListener(this);
 
 		// high score button panel
@@ -199,21 +201,23 @@ public class MainMenu extends CustomMenuElements implements ActionListener {
 		String input = nameField.getText().replaceAll("\\s", ""); // spaces removed from name
 		nameField.setText(input);
 
-		if (action.equals("easy")) {
+		if (action.equals("Easy")) {
 			if (input.equalsIgnoreCase("") || input.equalsIgnoreCase("Please enter your name")) {
 
 				nameReminder.setVisible(true);
 				nameField.setText("Please enter your name");
 			} else {
-				gameDifficulty = "easy";
+				gameDifficulty = "Easy";
 				playerName = input;
 				isRunning = false;
 				introMusic.stop();
+				window.removeAll();
+				window.setVisible(false);
 				window.dispose();
 				// method to launch new game with easy
 			}
 
-		} else if (action.equals("medium")) {
+		} else if (action.equals("Medium")) {
 			if (input.equalsIgnoreCase("") || input.equalsIgnoreCase("Please enter your name")) {
 
 				nameReminder.setVisible(true);
@@ -221,15 +225,17 @@ public class MainMenu extends CustomMenuElements implements ActionListener {
 			}
 
 			else {
-				gameDifficulty = "medium";
+				gameDifficulty = "Medium";
 				playerName = input;
 				isRunning = false;
 				introMusic.stop();
+				window.removeAll();
+				window.setVisible(false);
 				window.dispose();
 				// method to launch new game with easy
 			}
 
-		} else if (action.equals("hard")) {
+		} else if (action.equals("Hard")) {
 			if (input.equalsIgnoreCase("") || input.equalsIgnoreCase("Please enter your name")) {
 
 				nameReminder.setVisible(true);
@@ -237,10 +243,12 @@ public class MainMenu extends CustomMenuElements implements ActionListener {
 			}
 
 			else {
-				gameDifficulty = "hard";
+				gameDifficulty = "Hard";
 				playerName = input;
 				isRunning = false;
 				introMusic.stop();
+				window.removeAll();
+				window.setVisible(false);
 				window.dispose();
 				// method to launch new game with easy
 			}
@@ -248,6 +256,8 @@ public class MainMenu extends CustomMenuElements implements ActionListener {
 			exitWithoutPlay = true;
 			isRunning = false;
 			introMusic.stop();
+			window.removeAll();
+			window.setVisible(false);
 			window.dispose();
 			
 		} else if (action.equals("High Scores")) {

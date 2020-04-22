@@ -15,8 +15,29 @@ public class Frame extends JFrame{
         add(panel);
         setTitle(MainMenu.getUserName() + "'s Brick Breaker Game");
         setLocationRelativeTo(null);
+        setEnabled(true);
         setVisible(true);
         setResizable(false);
+        
+        while (Panel.getLevel() < 4 && Panel.getLives() > 0) {
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
+		}
+        
+        try {
+			Thread.sleep(9000);
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}
+        
+        removeAll();
+		setEnabled(false);
+		setVisible(false);
+		dispose();
+
         
         
     }

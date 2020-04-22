@@ -8,16 +8,13 @@ import java.util.Random;
 
 
 public class BrickMaker {
-	private int canvasSizeX, canvasSizeY, maxRow, maxCol, totalBricks, level;
-	private String difficulty;
+	private int canvasSizeX, canvasSizeY, maxRow, maxCol, totalBricks;
 	private ArrayList<Bricks> bucket = new ArrayList<Bricks>();
 	private boolean gameOver;
 
-	public BrickMaker(int canvasSizeX, int canvasSizeY, String difficulty, int level) {
+	public BrickMaker(int canvasSizeX, int canvasSizeY) {
 		this.canvasSizeX = canvasSizeX;
 		this.canvasSizeY = canvasSizeY;
-		this.difficulty = difficulty;
-		this.level = level;
 		this.gameOver = false;
 	}
 
@@ -31,7 +28,7 @@ public class BrickMaker {
 		totalBricks = maxRow * maxCol;
 		
 		
-		if (difficulty.equals("easy")) {
+		if (MainMenu.getDifficulty().toLowerCase().equals("easy")) {
 			blueMix = .2;
 			greenMix = .15;
 			orangeMix = .10;
@@ -40,7 +37,7 @@ public class BrickMaker {
 			invisibleMix = .20;
 		}
 
-		else if (difficulty.equals("medium")) {
+		else if (MainMenu.getDifficulty().toLowerCase().equals("medium")) {
 			blueMix = .125;
 			greenMix = .1;
 			orangeMix = .125;
@@ -77,51 +74,51 @@ public class BrickMaker {
 		double xBound, yBound;
 		int num;
 		
-		if (level == 1) {
+		if (Panel.level == 1) {
 			double y = .35 * canvasSizeY;
 			yBound = (int) Math.round(y);
-			xBound = canvasSizeX - 30;
-		} else if (level == 2) {
+			xBound = canvasSizeX - 60;
+		} else if (Panel.level == 2) {
 			double y = .45 * canvasSizeY;
 			yBound = (int) Math.round(y);
-			xBound = canvasSizeX - 30;
+			xBound = canvasSizeX - 60;
 		} else {
 			double y = .60 * canvasSizeY;
 			yBound = (int) Math.round(y);
-			xBound = canvasSizeX - 30;
+			xBound = canvasSizeX - 60;
 		}
 
 		for (int y = 20; y < yBound; y += 20) {
-			for (int x = 0; x <= xBound; x += 30) {
+			for (int x = 30; x <= xBound; x += 30) {
 				boolean found = false;
 				while (found == false) {
 					num = generator.nextInt(7);
 					if (num == 0 && blueTotal > 0) {
-						bucket.add(new BlueBricks(x, y, difficulty));
+						bucket.add(new BlueBricks(x, y));
 						blueTotal--;
 						found = true;
 					} else if (num == 1 && greenTotal > 0) {
-						bucket.add(new GreenBricks(x, y, difficulty));
+						bucket.add(new GreenBricks(x, y));
 						greenTotal--;
 						found = true;
 					} else if (num == 2 && orangeTotal > 0) {
-						bucket.add(new OrangeBricks(x, y, difficulty));
+						bucket.add(new OrangeBricks(x, y));
 						orangeTotal--;
 						found = true;
 					} else if (num == 3 && redTotal > 0) {
-						bucket.add(new RedBricks(x, y, difficulty));
+						bucket.add(new RedBricks(x, y));
 						redTotal--;
 						found = true;
 					} else if (num == 4 && grayTotal > 0) {
-						bucket.add(new GrayBricks(x, y, difficulty));
+						bucket.add(new GrayBricks(x, y));
 						grayTotal--;
 						found = true;
 					} else if ((num == 5 || num == 6) && invisibleTotal > 0) {
-						bucket.add(new InvisibleBricks(x, y, difficulty));
+						bucket.add(new InvisibleBricks(x, y));
 						invisibleTotal--;
 						found = true;
 					} else if (blueTotal + greenTotal + orangeTotal + redTotal + grayTotal + invisibleTotal == 0) {
-						bucket.add(new InvisibleBricks(x, y, difficulty));
+						bucket.add(new InvisibleBricks(x, y));
 						found = true;
 					}
 				}
@@ -156,6 +153,13 @@ public class BrickMaker {
 		return gameOver;
 	}
 	
+	public void hitAll() {
+		for (Bricks bricks : bucket) {
+			if(bricks.getColor().contentEquals("Gray") == false) {
+				bricks.gotHit();
+			}
+		}
+	}
 	public void setIsGameOver(boolean t) {
 		this.gameOver = t;
 	}

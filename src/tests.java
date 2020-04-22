@@ -19,7 +19,7 @@ class tests {
     
     @Test
     void BricksTest() {
-    	BrickMaker brickGame = new BrickMaker(600, 600, "easy", 1);
+    	BrickMaker brickGame = new BrickMaker(600, 600);
     	brickGame.makeBricks();
     	
     	ArrayList<Bricks> brickListing = brickGame.getBucket();

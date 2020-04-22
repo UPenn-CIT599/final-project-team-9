@@ -30,32 +30,6 @@ public class Runner {
 
 			if (MainMenu.getExitWithoutPlay() == false) {
 				frame = new Frame();
-
-				while (Panel.getLevel() < 4 && Panel.getLives() > 0) {
-					try {
-						Thread.sleep(500);
-					} catch (InterruptedException e1) {
-						e1.printStackTrace();
-					}
-				}
-				frame.dispose();
-
-				Player currentPlayer = new Player(MainMenu.getUserName(), Panel.getScore());
-				HighScore highScore = new HighScore(currentPlayer);
-				highScore.extractHighScore();
-				if (highScore.checkHighScore()) {
-					highScore.writeScore();
-					if (Panel.getLevel() == 4) {
-						JOptionPane.showMessageDialog(null,
-								"New High Score!! You win!! Click OK to return to Main Menu. ");
-					} else {
-						JOptionPane.showMessageDialog(null, "New High Score!! Click OK to return to Main Menu. ");
-					}
-				} else if (Panel.getLevel() == 4) {
-					JOptionPane.showMessageDialog(null, "You win!! Click OK to return to Main Menu. ");
-				} else {
-					JOptionPane.showMessageDialog(null, "Game Over. Nice try! Click OK to return to Main Menu.");
-				}
 				
 				MainMenu.setIsRunning(true);
 				MainMenu.setExitWithoutPlay(false);
@@ -67,10 +41,11 @@ public class Runner {
 			
 		}
 		
-		System.exit(0);
+		
 
 		// FOLLOW UPS:
-		// Critical: game loop is not working
+		// Critical: play game on med or hard: weird ball/brick interaction disappears behind need to fix
+		// Critical: check the name field it accepts "please enter your name" as a valid input
 		// follow-up on paddle/brick interactions - fix as needed
 		// paddle movement - goes off screen - should touch edges - right is far too
 		// left - left goes off screen

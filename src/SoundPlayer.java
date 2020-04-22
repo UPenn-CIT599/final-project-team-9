@@ -12,19 +12,36 @@ public class SoundPlayer {
 	private String filename;
 	private Clip clip;
 	
-	public SoundPlayer(int level) {
-		if(level == 0) {
-			this.filename = "Neck_Pillow.wav";
-		}
-		else if(level == 1) {
+	public SoundPlayer() {
+		
+		if(Panel.level == 1) {
 			this.filename = "Giant.wav";
 		}
-		else if(level == 2) {
+		else if(Panel.level == 2) {
 			this.filename = "Kul_Riddim.wav";
 		}
-		else {
+		else if(Panel.level == 3) { 
 			this.filename = "Night Owl.wav";
 		}
+		else if(Panel.level == 0) {
+			this.filename = "Neck_Pillow.wav";
+		}
+		else if(Panel.level == 4) {
+			this.filename = "Big_Explosion.wav";
+		}
+		else if(Panel.level == 5) {
+			this.filename = "game_over.wav";
+		}
+		else if(Panel.level == 6) {
+			this.filename = "life lost.wav";
+		}
+		else if(Panel.level == 7) {
+			this.filename = "Crash.wav";
+		}
+		else if(Panel.level == 8) {
+			this.filename = "Level Up.wav";
+		}
+		
 		
 	}
 
@@ -41,17 +58,26 @@ public class SoundPlayer {
 				this.clip.open(audioInput);
 				this.clip.start();
 				this.clip.loop(Clip.LOOP_CONTINUOUSLY);
-				this.clip.stop();
+				
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
 
-				/*JOptionPane.showMessageDialog(null, "Press OK to pause");
-				long clipTimePosition = clip.getMicrosecondPosition();
-				clip.stop();
+		}
+	}
+	
+	public void playSoundEffect() {
 
-				JOptionPane.showMessageDialog(null, "Press OK to resume");
-				clip.setMicrosecondPosition(clipTimePosition);
-				clip.start();
+		File musicLocation = new File(filename);
 
-				JOptionPane.showMessageDialog(null, "Press OK to stop playing");*/
+		if (musicLocation.exists()) {
+			try {
+				AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicLocation);
+				AudioFormat format = audioInput.getFormat();
+				DataLine.Info info = new DataLine.Info(Clip.class, format);
+				this.clip = (Clip) AudioSystem.getLine(info);
+				this.clip.open(audioInput);
+				this.clip.start();
 				
 			} catch(Exception e) {
 				e.printStackTrace();
