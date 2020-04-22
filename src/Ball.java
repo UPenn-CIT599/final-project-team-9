@@ -1,14 +1,7 @@
-
-
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
-
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 
 
 
@@ -99,11 +92,6 @@ public class Ball extends Shape{
         if(getY() + dy < 0) {
             dy = 1;
         }
-        /*
-        if(getY() + getHeight() + dy > panel.getHeight()) {
-            dy = -1;
-        }
-        */
         super.move(dx, dy);
     }
   

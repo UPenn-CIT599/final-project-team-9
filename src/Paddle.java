@@ -1,5 +1,4 @@
 import java.awt.Color;
-import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
 
 import javax.swing.JPanel;
@@ -20,7 +19,6 @@ public class Paddle extends Shape{
     }
     
     public void move (double dx) {
-    	//come back to make sure left side of paddle is shown on frame
         if((getX() + dx >= 0 ) && (getX() + dx + width <= panel.getWidth())){
             move(dx,0);
         }

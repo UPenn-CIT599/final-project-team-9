@@ -44,12 +44,6 @@ public class HighScore {
 	 * while adding this player to the list of players with high scores
 	 */
 	public boolean checkHighScore() {
-		/*
-		 * for(int i = 0; i < scoreList.size(); i++) { //if score is equal or higher to
-		 * high score, return true if(scoreList.get(i) <= userScore) {
-		 * this.scorePosition = i+1; return true; } }
-		 */
-
 		for (int i = 0; i < players.size(); i++) {
 			if (currentPlayer.getScore() >= players.get(i).getScore()) {
 				players.add(currentPlayer);
@@ -105,20 +99,5 @@ public class HighScore {
 		}
 	}
 
-	//to be deleted later - only used for internal demo purposes
-	public static void main(String[] args) {
-		Player newGuy = new Player("Testing");
-		newGuy.setScore(95);
-		HighScore gamePlay = new HighScore(newGuy);
-		gamePlay.extractHighScore();
-		gamePlay.checkHighScore();
-		gamePlay.writeScore();
-		
-		Player newGuy2 = new Player("Testing2", 52);
-		HighScore gamePlay2 = new HighScore(newGuy);
-		gamePlay2.extractHighScore();
-		gamePlay2.checkHighScore();
-		gamePlay2.writeScore();
-	}
 
 }
