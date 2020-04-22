@@ -202,7 +202,7 @@ public class MainMenu extends CustomMenuElements implements ActionListener {
 		nameField.setText(input);
 
 		if (action.equals("Easy")) {
-			if (input.equalsIgnoreCase("") || input.equalsIgnoreCase("Please enter your name")) {
+			if (input.equalsIgnoreCase("") || input.equalsIgnoreCase("Pleaseenteryourname")) {
 				nameReminder.setVisible(true);
 				nameField.setText("Please enter your name");
 			} else {
@@ -218,7 +218,7 @@ public class MainMenu extends CustomMenuElements implements ActionListener {
 
 
 		} else if (action.equals("Medium")) {
-			if (input.equalsIgnoreCase("") || input.equalsIgnoreCase("Please enter your name")) {
+			if (input.equalsIgnoreCase("") || input.equalsIgnoreCase("Pleaseenteryourname")) {
 				nameReminder.setVisible(true);
 				nameField.setText("Please enter your name");
 			}
@@ -235,7 +235,7 @@ public class MainMenu extends CustomMenuElements implements ActionListener {
 			}
 
 		} else if (action.equals("Hard")) {
-			if (input.equalsIgnoreCase("") || input.equalsIgnoreCase("Please enter your name")) {
+			if (input.equalsIgnoreCase("") || input.equalsIgnoreCase("Pleaseenteryourname")) {
 				nameReminder.setVisible(true);
 				nameField.setText("Please enter your name");
 			}

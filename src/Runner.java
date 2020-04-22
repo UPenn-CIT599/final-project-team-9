@@ -45,7 +45,6 @@ public class Runner {
 
 		// FOLLOW UPS:
 		// Critical: play game on med or hard: weird ball/brick interaction disappears behind need to fix
-		// Critical: check the name field it accepts "please enter your name" as a valid input
 		// follow-up on paddle/brick interactions - fix as needed
 		// Create JUnit tests (14 more)
 		// Create a ReadMe doc

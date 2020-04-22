@@ -176,26 +176,33 @@ public class Panel extends JPanel {
 					score++;
 					
 				}
-				if (ball.getX() > 0) {
+				if (ball.getDx() >= 0) {
 					if (ball.getPosY() > bricks.getY()) {
 						ball.down();
-					} else if (ball.getPosY() < bricks.getY()) {
+					} else if (ball.getPosY() <= bricks.getY()) {
 						ball.up();
 					}
-					if (ball.getDx() > -1) {
-						ball.setDx(ball.getDx() - 0.5);
+					
+					if(ball.getDx() > 2) {
+					    ball.setDx(-1);
 					}
 
-				} else if (ball.getX() < 0) {
+					ball.setDx(ball.getDx()-0.5);
+ 
+					
+				} else if (ball.getDx() < 0) {
 					if (ball.getPosY() > bricks.getY()) {
 						ball.down();
-					} else if (ball.getPosY() < bricks.getY()) {
+					} else if (ball.getPosY() <= bricks.getY()) {
 						ball.up();
 					}
-					if (ball.getDx() < 1) {
-						ball.setDx(ball.getDx() + 0.5);
-					}
-
+					
+					if(ball.getDx() < -2) {
+                        ball.setDx(+1);
+                    }
+                    
+                    ball.setDx(ball.getDx()+0.5);
+ 
 				}
 
 			}
@@ -205,6 +212,7 @@ public class Panel extends JPanel {
 	private void lifeLostChecker() {
 		if ((int) ball.getY() > (600 + ball.getSize())) {
 			ball = new Ball(300, 450, Color.red, Panel.this);
+			hitCounter = 0;
 			lives--;
 			if (lives == 0) {
 				backgoundMusic.stop();
@@ -256,50 +264,80 @@ public class Panel extends JPanel {
 	}
 	
 	private void brickDestroyer() {
-		if(hitCounter % 30 == 0 && level == 1 && hitCounter != 0) {
+		if(hitCounter % 30 == 0 && level == 1 && hitCounter != 0 && MainMenu.getDifficulty().toLowerCase().equals("easy")) {
 			bricks.hitAll();
 			brickExplosion.playSoundEffect();
 			hitCounter++;
 		}
-		else if(hitCounter % 40 == 0 && level == 2 && hitCounter != 0) {
+		else if(hitCounter % 40 == 0 && level == 2 && hitCounter != 0 && MainMenu.getDifficulty().toLowerCase().equals("easy")) {
 			bricks.hitAll();
 			brickExplosion.playSoundEffect();
 			hitCounter++;
 		}
-		else if(hitCounter % 50 == 0 && level == 3 && hitCounter != 0) {
+		else if(hitCounter % 50 == 0 && level == 3 && hitCounter != 0 && MainMenu.getDifficulty().toLowerCase().equals("easy")) {
 			bricks.hitAll();
 			brickExplosion.playSoundEffect();
 			hitCounter++;
 		}
+		else if(hitCounter % 45 == 0 && level == 1 && hitCounter != 0 && MainMenu.getDifficulty().toLowerCase().equals("medium")) {
+            bricks.hitAll();
+            brickExplosion.playSoundEffect();
+            hitCounter++;
+        }
+        else if(hitCounter % 60 == 0 && level == 2 && hitCounter != 0 && MainMenu.getDifficulty().toLowerCase().equals("medium")) {
+            bricks.hitAll();
+            brickExplosion.playSoundEffect();
+            hitCounter++;
+        }
+        else if(hitCounter % 75 == 0 && level == 3 && hitCounter != 0 && MainMenu.getDifficulty().toLowerCase().equals("medium")) {
+            bricks.hitAll();
+            brickExplosion.playSoundEffect();
+            hitCounter++;
+        }
+        else if(hitCounter % 60 == 0 && level == 1 && hitCounter != 0 && MainMenu.getDifficulty().toLowerCase().equals("hard")) {
+            bricks.hitAll();
+            brickExplosion.playSoundEffect();
+            hitCounter++;
+        }
+        else if(hitCounter % 80 == 0 && level == 2 && hitCounter != 0 && MainMenu.getDifficulty().toLowerCase().equals("hard")) {
+            bricks.hitAll();
+            brickExplosion.playSoundEffect();
+            hitCounter++;
+        }
+        else if(hitCounter % 100 == 0 && level == 3 && hitCounter != 0 && MainMenu.getDifficulty().toLowerCase().equals("hard")) {
+            bricks.hitAll();
+            brickExplosion.playSoundEffect();
+            hitCounter++;
+        }
 	}
 	
 	private void wallDestroyer() {
-		if(hitCounter % 100 == 0 && level == 1 && hitCounter != 0 && MainMenu.getDifficulty().toLowerCase().equals("medium")) {
+		if(hitCounter % 150 == 0 && level == 1 && hitCounter != 0 && MainMenu.getDifficulty().toLowerCase().equals("medium")) {
 			bricks.destroyWall();
 			brickExplosion.playSoundEffect();
 			hitCounter++;
 		}
-		else if(hitCounter % 115 == 0 && level == 2 && hitCounter != 0 && MainMenu.getDifficulty().toLowerCase().equals("medium")) {
+		else if(hitCounter % 175 == 0 && level == 2 && hitCounter != 0 && MainMenu.getDifficulty().toLowerCase().equals("medium")) {
 			bricks.destroyWall();
 			brickExplosion.playSoundEffect();
 			hitCounter++;
 		}
-		else if(hitCounter % 130 == 0 && level == 3 && hitCounter != 0 && MainMenu.getDifficulty().toLowerCase().equals("medium")) {
+		else if(hitCounter % 200 == 0 && level == 3 && hitCounter != 0 && MainMenu.getDifficulty().toLowerCase().equals("medium")) {
 			bricks.destroyWall();
 			brickExplosion.playSoundEffect();
 			hitCounter++;
 		}
-		else if(hitCounter % 115 == 0 && level == 1 && hitCounter != 0 && MainMenu.getDifficulty().toLowerCase().equals("hard")) {
+		else if(hitCounter % 210 == 0 && level == 1 && hitCounter != 0 && MainMenu.getDifficulty().toLowerCase().equals("hard")) {
 			bricks.destroyWall();
 			brickExplosion.playSoundEffect();
 			hitCounter++;
 		}
-		else if(hitCounter % 130 == 0 && level == 2 && hitCounter != 0 && MainMenu.getDifficulty().toLowerCase().equals("hard")) {
+		else if(hitCounter % 230 == 0 && level == 2 && hitCounter != 0 && MainMenu.getDifficulty().toLowerCase().equals("hard")) {
 			bricks.destroyWall();
 			brickExplosion.playSoundEffect();
 			hitCounter++;
 		}
-		else if(hitCounter % 145 == 0 && level == 3 && hitCounter != 0 && MainMenu.getDifficulty().toLowerCase().equals("hard")) {
+		else if(hitCounter % 250 == 0 && level == 3 && hitCounter != 0 && MainMenu.getDifficulty().toLowerCase().equals("hard")) {
 			bricks.destroyWall();
 			brickExplosion.playSoundEffect();
 			hitCounter++;
