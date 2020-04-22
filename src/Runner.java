@@ -1,5 +1,3 @@
-import javax.swing.JOptionPane;
-
 /**
  * Runner class for the entire program
  * 
@@ -44,7 +42,6 @@ public class Runner {
 		
 
 		// FOLLOW UPS:
-		// Critical: play game on med or hard: weird ball/brick interaction disappears behind need to fix
 		// follow-up on paddle/brick interactions - fix as needed
 		// Create JUnit tests (14 more)
 		// Create a ReadMe doc

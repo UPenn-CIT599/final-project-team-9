@@ -7,8 +7,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class Panel extends JPanel {
@@ -183,11 +181,17 @@ public class Panel extends JPanel {
 						ball.up();
 					}
 					
-					if(ball.getDx() > 2) {
+					if(ball.getDx() > 1) {
 					    ball.setDx(-1);
 					}
+					
+					if(ball.getDx() < 0.25) {
+						ball.setDx(-1);
+					}
 
-					ball.setDx(ball.getDx()-0.5);
+					else {
+						ball.setDx(ball.getDx()*-0.9);
+					}
  
 					
 				} else if (ball.getDx() < 0) {
@@ -197,12 +201,18 @@ public class Panel extends JPanel {
 						ball.up();
 					}
 					
-					if(ball.getDx() < -2) {
+					if(ball.getDx() < -1) {
                         ball.setDx(+1);
                     }
+					
+					if(ball.getDx() > -0.25) {
+						ball.setDx(+1);
+					}
+					
+					else {
+						ball.setDx(ball.getDx()*-0.9);	
+					}
                     
-                    ball.setDx(ball.getDx()+0.5);
- 
 				}
 
 			}

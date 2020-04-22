@@ -43,7 +43,6 @@ public class MainMenu extends CustomMenuElements implements ActionListener {
 	private static boolean isRunning = true, exitWithoutPlay = false;
 	private SoundPlayer introMusic;
 
-	// method for ball display on menu
 
 	/**
 	 * Initializes display and welcomes the user to the game, prompts difficulty
