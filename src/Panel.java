@@ -104,8 +104,9 @@ public class Panel extends JPanel {
 
 					if (level < 4) {
 						levelUp.playSoundEffect();
+						repaint();
 						try {
-							Thread.sleep(4000);
+							Thread.sleep(6000);
 						} catch (InterruptedException e1) {
 							e1.printStackTrace();
 						}

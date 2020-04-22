@@ -3,9 +3,9 @@ Rank Name Score
 2 moomoo 280
 3 playaplaya 125
 4 Raheel 120
-5 Jacob 100
-6 Testing 95
+5 noor 103
+6 Jacob 100
 7 Testing 95
-8 Muizz 90
-9 Arvind 80
-10 Stacy 75
+8 Testing 95
+9 Muizz 90
+10 muizz 86
