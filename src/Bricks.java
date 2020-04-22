@@ -1,4 +1,5 @@
 import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
 
 
 public class Bricks {
@@ -69,7 +70,7 @@ public class Bricks {
 		}
 	}
 	
-	public Rectangle getRect() {
+	public Rectangle2D getRect() {
 		return new Rectangle(this.x, this.y, this.getBrickWidth(), this.getBrickHeight());
 	}
 

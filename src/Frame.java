@@ -7,13 +7,13 @@ public class Frame extends JFrame{
     private final int framewidth = 600;
     private Panel panel;
     
-    public Frame(String username, String difficulty) {
+    public Frame() {
         
-    	panel = new Panel(difficulty, username);
+    	panel = new Panel();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(framewidth, frameheight);
         add(panel);
-        setTitle(username + "'s Brick Breaker Game");
+        setTitle(MainMenu.getUserName() + "'s Brick Breaker Game");
         setLocationRelativeTo(null);
         setVisible(true);
         setResizable(false);

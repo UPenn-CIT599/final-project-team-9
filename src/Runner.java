@@ -1,53 +1,83 @@
+import javax.swing.JOptionPane;
+
 /**
  * Runner class for the entire program
+ * 
  * @author jacob, muizz, raheel
  *
  */
 public class Runner {
-	
-    
-    /**
-     * This method runs the entire program until user decides to exit 
-     * @param args
-     */
-    public static void main(String[] args) {
-    	String username;
-    	String difficulty;
-    	boolean mainMenuRunning = true;
-    	//boolean gameRunning = true;
-    	
-    	//while(gameRunning) {
-    		MainMenu mainMenu = new MainMenu();
 
-        	mainMenuRunning = mainMenu.getIsRunning();
+	/**
+	 * This method runs the entire program until user decides to exit
+	 * 
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		MainMenu mainMenu;
+		Frame frame;
 
-        	while(mainMenuRunning) {
-        		try {
-        			Thread.sleep(3000);
-        			mainMenuRunning = mainMenu.getIsRunning();
-        		} catch (InterruptedException e1) {
-        			e1.printStackTrace();
-        		}
-        	}
+		while (MainMenu.getIsRunning()) {
+			mainMenu = new MainMenu();
 
-        	difficulty = mainMenu.getDifficulty();
-        	username = mainMenu.getUserName();
-        	Frame frame = new Frame(username, difficulty);
-        	//gameRunning = frame.getIs
-    	//}
+			while (MainMenu.getIsRunning()) {
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+			}
 
-    	
-    	
-    	//FOLLOW UPS:
-    	//fix paddle movement & ball bounce off paddle
-    	//need to fix ball bounce off bricks
-    	//level up - DONE
-    	//add game ending when you beat level 3 and run out of lives - Need to Link to Same Place as High Score + Exit once figured out 
-    	//high score calculator + redirect to main menu - MOSTLY DONE - NEED FOR DISPLAY TO UPDATE - HIGH SCORE CALC WORKS
-    	//sound needs to stop when moving from main menu to game and level and level to level - DONE
-    	//gray bricks need to be fixed for boxing in potential layout
-    	
+			if (MainMenu.getExitWithoutPlay() == false) {
+				frame = new Frame();
 
-    }
+				while (Panel.getLevel() < 4 && Panel.getLives() > 0) {
+					try {
+						Thread.sleep(500);
+					} catch (InterruptedException e1) {
+						e1.printStackTrace();
+					}
+				}
+				frame.dispose();
+
+				Player currentPlayer = new Player(MainMenu.getUserName(), Panel.getScore());
+				HighScore highScore = new HighScore(currentPlayer);
+				highScore.extractHighScore();
+				if (highScore.checkHighScore()) {
+					highScore.writeScore();
+					if (Panel.getLevel() == 4) {
+						JOptionPane.showMessageDialog(null,
+								"New High Score!! You win!! Click OK to return to Main Menu. ");
+					} else {
+						JOptionPane.showMessageDialog(null, "New High Score!! Click OK to return to Main Menu. ");
+					}
+				} else if (Panel.getLevel() == 4) {
+					JOptionPane.showMessageDialog(null, "You win!! Click OK to return to Main Menu. ");
+				} else {
+					JOptionPane.showMessageDialog(null, "Game Over. Nice try! Click OK to return to Main Menu.");
+				}
+				
+				MainMenu.setIsRunning(true);
+				MainMenu.setExitWithoutPlay(false);
+				Panel.setLevel(1);
+				Panel.setLives(3);
+				Panel.setScore(0);
+
+			}
+			
+		}
+		
+		System.exit(0);
+
+		// FOLLOW UPS:
+		// Critical: game loop is not working
+		// follow-up on paddle/brick interactions - fix as needed
+		// paddle movement - goes off screen - should touch edges - right is far too
+		// left - left goes off screen
+		// gray bricks need to be fixed for boxing in potential layout
+		// Create JUnit tests (14 more)
+		// Create a ReadMe doc
+
+	}
 
 }

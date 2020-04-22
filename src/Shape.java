@@ -35,7 +35,7 @@ public class Shape {
     	return this.shape.intersects(object.shape.getBounds2D());
     }
     
-    public boolean intersection(Rectangle object) {
+    public boolean intersection(Rectangle2D object) {
     	return this.shape.intersects(object.getBounds2D());
     }
     

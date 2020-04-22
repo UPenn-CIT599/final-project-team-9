@@ -7,5 +7,5 @@ Rank Name Score
 6 Muizz 90
 7 Arvind 80
 8 Stacy 75
-9 James 70
-10 TheBestPlayer 70
+9 Z 75
+10 testGame 29

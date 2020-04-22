@@ -17,30 +17,23 @@ public class Panel extends JPanel{
     private Ball ball;
     private Paddle paddle;
     private BrickMaker bricks;
-    private int lives = 3;
-    private String difficulty, username;
-    private int score;
-    private int level = 1;
+    public static int level = 1, lives = 3, score;
     private int lastMove;
     private ArrayList<Bricks> brickBucket;
     private SoundPlayer sound;
  
     
     
-    public Panel(String difficulty, String username) {
+    public Panel() {
         
-        this.difficulty = difficulty;
-        this.username = username;
-    	
-    	
         ball = new Ball(200,400,Color.red, this);
         paddle = new Paddle(Color.black, this);
-        bricks = new BrickMaker(600, 600, difficulty, level);
+        bricks = new BrickMaker(600, 600, MainMenu.getDifficulty(), level);
         bricks.makeBricks();
         brickBucket = bricks.getBucket();
         
         sound = new SoundPlayer(level);
-        sound.Sound();
+        sound.playSound();
     
         
         timer = new javax.swing.Timer(5, new ActionListener() {
@@ -53,55 +46,55 @@ public class Panel extends JPanel{
 					} catch (InterruptedException e1) {
 						e1.printStackTrace();
 					}
-            		lives--; //add if formula to check if lives is less than 0; will end game
+            		lives--;
+            		if(lives == 0) {
+            			sound.stop();
+            		}
             		
             	}
             	if(ball.intersection(paddle) || paddle.intersection(ball)) {
             		ball.up();
-            		//getter/setter for dx
-                    //adjust the x speed by +/-0.5 if hit on the edges
-                    if(ball.getX() < paddle.getX() + paddle.getWidth()/4) {
+                    if(ball.getX() < paddle.getX() + paddle.getWidth()/8) {
                         ball.setDx(ball.getDx() - 0.5);
                     }
-                    if(ball.getX() < (paddle.getX() + paddle.getWidth()) && ball.getX() > (paddle.getX() + paddle.getWidth() /4)) {
+                    if(ball.getX() < (paddle.getX() + paddle.getWidth()) && ball.getX() > (paddle.getX() + paddle.getWidth() /8)) {
                         ball.setDx(ball.getDx() + 0.5);
                     }
-                    /*if ((ball.getY() + (ball.getHeight())) < paddle.getY()) {
-            			if(lastMove > 0) {
-            				ball.right();
-            			}
-            			else {
-            				ball.left();
-            			}
-            		}*/
-            		/*
-            		if(ball.getY() + (ball.getHeight() / 2) > paddle.getY() - (paddle.getHeight() / 2) + 1) {
-            			System.out.println("Hi Raheel");
-            			if(ball.getDx() > 0) {
-            				ball.right();
-            				//left to right
-            				System.out.println("Hi Muizz");
-
-            			}
-            			else if(ball.getDx() < 0) {
-            				ball.left();
-            				//right to left
-            				System.out.println("Hi Jacob");
-
-            			}
-            		}
-            		
-            		*/
-            		
-            		
+               
             	} 
             	
 
                for (Bricks bricks : brickBucket) {
-				if(ball.intersection(bricks.getRect())) {
-					bricks.gotHit();
-					score++;
-					ball.up();
+				if(ball.intersection(bricks.getRect()) || bricks.getRect().intersects(ball.getRect())) {
+					if(bricks.getColor().equals("Gray") == false) {
+						bricks.gotHit();
+						score++;
+					}
+					if(ball.getX() > 0) {
+						if(ball.getPosY() > bricks.getY()) {
+							ball.down();
+						}
+						else if(ball.getPosY() < bricks.getY()) {
+							ball.up();
+						}
+						if(ball.getDx() > -1) {
+							ball.setDx(ball.getDx() - 0.5);
+						}
+						
+					}
+					else if(ball.getX() < 0) {
+						if(ball.getPosY() > bricks.getY()) {
+							ball.down();
+						}
+						else if(ball.getPosY() < bricks.getY()) {
+							ball.up();
+						}
+						if(ball.getDx() < 1) {
+							ball.setDx(ball.getDx() + 0.5);
+						}
+	
+					}
+					
 				}
 			}
             	ball.move();
@@ -110,20 +103,23 @@ public class Panel extends JPanel{
             		level++;
             		if(level < 4) {
             			try {
-    						Thread.sleep(3000);
+    						
+            				Thread.sleep(3000);
     					} catch (InterruptedException e1) {
     						e1.printStackTrace();
     					}
-            			bricks = new BrickMaker(600, 600, difficulty, level);
-                		bricks.makeBricks();
-                		brickBucket.clear();
+            			brickBucket.clear();
+            			bricks = new BrickMaker(600, 600, MainMenu.getDifficulty(), level);
+            			bricks.makeBricks();
                 		brickBucket = bricks.getBucket();
-                		bricks.setIsGameOver(false);
                 		sound.stop();
                 		sound = new SoundPlayer(level);
-                		sound.Sound();
+                		sound.playSound();
                 		ball = new Ball(300,450,Color.red, Panel.this);
                 		
+            		}
+            		else {
+            			sound.stop();
             		}
             		
             		//check level of game and move on
@@ -157,55 +153,43 @@ public class Panel extends JPanel{
         
     }
     
+    public static void setLives(int l) {
+    	lives = l;
+    }
     
-    public int getLives() {
+    public static int getLives() {
     	return lives;
     }
     
-    public void setLevel(int level) {
-    	this.level = level;
+    public static void setLevel(int l) {
+    	level = l;
+    }
+    public static int getLevel() {
+    	return level;
+    }
+    
+    public static void setScore(int s) {
+    	score = s;
+    }
+    
+    public static int getScore() {
+    	return score;
     }
     
  
     public void paintComponent(Graphics g) {
-    	Graphics2D g2 = (Graphics2D) g;
-    	if(level == 4) {
-        	g2.setFont(new Font("Helvetica",Font.BOLD,42));
-            g2.setColor(Color.black);
-            if(checkHighScore()) {
-            	g2.drawString("New High Score!!!", 300, 300);
-            	g2.drawString("Close Window To Return To Main Menu", 300, 400);
-            }
-            else {
-            	g2.drawString("Close Window To Return To Main Menu", 300, 300);
-            }
-        
-        }
-        else {
-        	super.paintComponent(g);
-            ball.draw(g2);
-            paddle.draw(g2);
-            bricks.draw(g2);
-            g2.setFont(new Font("Helvetica",Font.BOLD,20));
-            g2.setColor(Color.black);
-            g2.drawString(username + " - Level " + level + " - Score " + score + " - Lives " + lives, 0, 600);
-        }
-    	
-        
-        
+		Graphics2D g2 = (Graphics2D) g;
+
+		super.paintComponent(g);
+		ball.draw(g2);
+		paddle.draw(g2);
+		bricks.draw(g2);
+		g2.setFont(new Font("Helvetica", Font.BOLD, 20));
+		g2.setColor(Color.black);
+		g2.drawString(MainMenu.getUserName() + " - Level " + level + " - Score " + score + " - Lives " + lives, 0, 600);
+
     }
     
-    
-    private boolean checkHighScore() {
-    	Player currentPlayer = new Player(username, score);
-    	HighScore highScore = new HighScore(currentPlayer);
-    	highScore.extractHighScore();
-    	if(highScore.checkHighScore()) {
-    		highScore.writeScore();
-    		return true;
-    	}
-    	return false;
-    }
    
 
 }

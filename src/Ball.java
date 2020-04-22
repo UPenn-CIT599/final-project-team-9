@@ -1,16 +1,14 @@
 
 
 import java.awt.*;
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
-
-import java.awt.Color;
 
 
 
@@ -60,6 +58,10 @@ public class Ball extends Shape{
     public int getSpeed() {
     	return speed;
     }
+    
+    public Rectangle2D getRect() {
+		return new Rectangle(this.posX, this.posY, this.size, this.size);
+	}
     
     public void setSpeed(int speed) {
     	this.speed = speed;

@@ -28,7 +28,7 @@ public class SoundPlayer {
 		
 	}
 
-	public void Sound() {
+	public void playSound() {
 
 		File musicLocation = new File(filename);
 
@@ -41,6 +41,7 @@ public class SoundPlayer {
 				this.clip.open(audioInput);
 				this.clip.start();
 				this.clip.loop(Clip.LOOP_CONTINUOUSLY);
+				this.clip.stop();
 
 				/*JOptionPane.showMessageDialog(null, "Press OK to pause");
 				long clipTimePosition = clip.getMicrosecondPosition();
