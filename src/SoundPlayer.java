@@ -85,5 +85,10 @@ public class SoundPlayer {
 	}
 	public void stop() {
 		this.clip.stop();
+		this.clip.close();
+	}
+	
+	public Clip getClip() {
+		return clip;
 	}
 }

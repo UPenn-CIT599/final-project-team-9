@@ -272,6 +272,10 @@ public class MainMenu extends CustomMenuElements implements ActionListener {
 		return gameDifficulty;
 
 	}
+	
+	public static void setDifficulty(String difficulty) {
+		gameDifficulty = difficulty;
+	}
 
 	public static boolean getIsRunning() {
 		return isRunning;

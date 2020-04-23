@@ -175,6 +175,10 @@ public class BrickMaker {
 	public ArrayList<Bricks> getBucket() {
 		return bucket;
 	}
+	
+	public int getTotalBricks() {
+		return totalBricks;
+	}
 
 	public void draw(Graphics2D g) {
 		for (Bricks bricks : bucket) {
