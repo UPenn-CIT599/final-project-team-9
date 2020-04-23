@@ -33,6 +33,10 @@ public class Frame extends JFrame{
 			e1.printStackTrace();
 		}
         
+        if(panel.getHighScore().checkHighScore()) {
+        	panel.getHighScore().writeScore();
+        }
+        
         removeAll();
 		setEnabled(false);
 		setVisible(false);

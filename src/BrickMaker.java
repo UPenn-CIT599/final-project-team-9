@@ -155,6 +155,7 @@ public class BrickMaker {
 		for (Bricks bricks : bucket) {
 			if(bricks.getColor().contentEquals("Gray") == false) {
 				bricks.gotHit();
+				Panel.setScore(Panel.getScore() + 1);
 			}
 		}
 	}

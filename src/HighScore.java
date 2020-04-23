@@ -46,7 +46,6 @@ public class HighScore {
 	public boolean checkHighScore() {
 		for (int i = 0; i < players.size(); i++) {
 			if (currentPlayer.getScore() >= players.get(i).getScore()) {
-				players.add(currentPlayer);
 				return true;
 			}
 		}
@@ -83,6 +82,7 @@ public class HighScore {
 	 */
 	public void writeScore() {
 		File highScoreFile = new File(filename);
+		players.add(currentPlayer);
 		players.sort(null);
 
 		try {
@@ -97,6 +97,14 @@ public class HighScore {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public Player getPlayer() {
+		return currentPlayer;
 	}
 
 

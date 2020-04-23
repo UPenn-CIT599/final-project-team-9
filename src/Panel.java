@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+
+
 import javax.swing.JPanel;
 
 public class Panel extends JPanel {
@@ -15,10 +17,13 @@ public class Panel extends JPanel {
 	private Ball ball;
 	private Paddle paddle;
 	private BrickMaker bricks;
+	private Player currentPlayer; 
+	private HighScore highScore;
+	private static boolean isPaused;
 	public static int level = 1, lives = 3, score;
 	private int lastMove, hitCounter;
 	private ArrayList<Bricks> brickBucket;
-	private SoundPlayer backgoundMusic, brickExplosion, gameOver, lifeOver, winMusic, levelUp;
+	private SoundPlayer backgroundMusic, brickExplosion, gameOver, lifeOver, winMusic, levelUp;
 
 	public Panel() {
 
@@ -28,23 +33,37 @@ public class Panel extends JPanel {
 		bricks.makeBricks();
 		brickBucket = bricks.getBucket();
 		hitCounter = 0;
-
+		isPaused = true;
+		currentPlayer = new Player(MainMenu.getUserName());
+		highScore = new HighScore(currentPlayer);
 		createMusic();
 		
 
 		timer = new javax.swing.Timer(5, new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				lifeLostChecker();
-				paddleInteraction();
-				brickInteraction();
-				ball.move();
-				bricks.deleteInvisibleBricks();
-				levelUpChecker();
-				brickDestroyer();
-				wallDestroyer();
-				gameOverChecker();
-				repaint();
+				
+				if(isPaused) {
+					try {
+						Thread.sleep(1000);
+					}catch(Exception f) {
+						f.printStackTrace();
+					}
+				}
+				else {
+					lifeLostChecker();
+					paddleInteraction();
+					brickInteraction();
+					ball.move();
+					bricks.deleteInvisibleBricks();
+					levelUpChecker();
+					brickDestroyer();
+					wallDestroyer();
+					gameOverChecker();
+					repaint();
+				}
+				
+				
 			}
 
 		});
@@ -59,6 +78,9 @@ public class Panel extends JPanel {
 				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 					paddle.moveRight();
 					lastMove = 1;
+				}
+				if (e.getKeyCode() == KeyEvent.VK_P) {
+					isPaused = !isPaused;
 				}
 				repaint();
 			}
@@ -91,6 +113,10 @@ public class Panel extends JPanel {
 	public static int getScore() {
 		return score;
 	}
+	
+	public static boolean getIsPaused() {
+		return isPaused;
+	}
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -114,29 +140,29 @@ public class Panel extends JPanel {
 			ball.draw(g2);
 			paddle.draw(g2);
 			bricks.draw(g2);
-			g2.setFont(new Font("Helvetica", Font.BOLD, 20));
+			g2.setFont(new Font("Helvetica", Font.BOLD, 16));
 			g2.setColor(Color.black);
 			g2.drawString(MainMenu.getUserName() + " - " + MainMenu.getDifficulty() + " - Level " + level + " - Score "
 					+ score + " - Lives " + lives, 0, 600);
+			g2.drawString("Press P to Pause/Play", 0, 620);
 
 		}
 
 	}
 	
+	
 	private boolean checkHighScore() {
-		Player currentPlayer = new Player(MainMenu.getUserName(), score);
-		HighScore highScore = new HighScore(currentPlayer);
+		highScore.getPlayer().setScore(score);
 		highScore.extractHighScore();
 		if (highScore.checkHighScore()) {
-			highScore.writeScore();
 			return true;
 		}
 		return false;
 	}
 	
 	private void createMusic() {
-		backgoundMusic = new SoundPlayer();
-		backgoundMusic.playSound();
+		backgroundMusic = new SoundPlayer();
+		backgroundMusic.playSound();
 		level = 4;
 		brickExplosion = new SoundPlayer();
 		level = 5;
@@ -225,7 +251,7 @@ public class Panel extends JPanel {
 			hitCounter = 0;
 			lives--;
 			if (lives == 0) {
-				backgoundMusic.stop();
+				backgroundMusic.stop();
 				gameOver.playSoundEffect();
 			}
 			else {
@@ -246,24 +272,24 @@ public class Panel extends JPanel {
 
 			if (level < 4) {
 				repaint();
-				backgoundMusic.stop();
+				backgroundMusic.stop();
 				levelUp.playSoundEffect();
-				try {
-					Thread.sleep(6000);
-				} catch (InterruptedException e1) {
-					e1.printStackTrace();
-				}
+				isPaused = true;
 				brickBucket.clear();
 				bricks = new BrickMaker(600, 600);
 				bricks.makeBricks();
 				brickBucket = bricks.getBucket();
-				
-				backgoundMusic = new SoundPlayer();
-				backgoundMusic.playSound();
+				try {
+					Thread.sleep(6000);
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
+				backgroundMusic = new SoundPlayer();
+				backgroundMusic.playSound();
 				ball = new Ball(300, 450, Color.red, Panel.this);
 
 			} else {
-				backgoundMusic.stop();
+				backgroundMusic.stop();
 				if(level == 4) {
 					winMusic.playSoundEffect();
 					
@@ -359,6 +385,10 @@ public class Panel extends JPanel {
 			repaint();
 			timer.stop();
 		}
+	}
+	
+	public HighScore getHighScore() {
+		return highScore;
 	}
 
 }

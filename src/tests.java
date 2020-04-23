@@ -17,37 +17,5 @@ class tests {
         assertEquals(testValue, true);
     }
     
-    @Test
-    void BricksTest() {
-    	BrickMaker brickGame = new BrickMaker(600, 600);
-    	brickGame.makeBricks();
-    	
-    	ArrayList<Bricks> brickListing = brickGame.getBucket();
-    	int b = 0 , g = 0, o = 0, r = 0, gr = 0;
-    	
-    	for (Bricks bricks : brickListing) {
-			if(bricks.getColor().equals("Blue")) {
-				b++;
-			}
-			if(bricks.getColor().equals("Orange")) {
-				o++;
-			}
-			if(bricks.getColor().equals("Red")) {
-				r++;
-			}
-			if(bricks.getColor().equals("Green")) {
-				g++;
-			}
-			if(bricks.getColor().equals("Gray")) {
-				gr++;
-			}
-		}
-    	
-    	assertEquals(b, 150);
-    	assertEquals(g, 108);
-    	assertEquals(o, 36);
-    	assertEquals(r, 18);
-    	assertEquals(gr, 0);
-    }
 
 }
