@@ -39,12 +39,6 @@ public class Runner {
 			
 		}
 		
-		
-
-		// FOLLOW UPS:
-		// follow-up on paddle/brick interactions - fix as needed
-		// Create JUnit tests (14 more)
-		// Create a ReadMe doc
 
 	}
 

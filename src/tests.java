@@ -1,5 +1,13 @@
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.awt.Color;
+import java.awt.Font;
 import java.util.*;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
 import org.junit.jupiter.api.Test;
 
 class tests {
@@ -159,5 +167,51 @@ class tests {
     	soundMaker.stop();
     	assertEquals(soundMaker.getClip().isOpen(), false);
     	
+    }
+    
+    @Test
+    /*
+     * This test confirms that the paddle is moving properly
+     */
+    void paddleMoveTest() {
+        JPanel panel = new JPanel();
+        Paddle paddle = new Paddle(Color.RED, panel);
+        paddle.move(100);
+        int testlocation = (int) paddle.getX();
+        assertEquals(testlocation, 300);
+        
+    }
+    
+    @Test
+    /*
+     * This test confirms the frame is being created and has a title
+     */
+    void frameTestTitle() {
+        JFrame frame = new JFrame();
+        frame.setTitle("Test Title");
+        String title = frame.getTitle();
+        String lastword = title.substring(title.lastIndexOf(" ")+1);
+        assertEquals(lastword, "Title");
+    }
+    
+    @Test
+    /*
+     * This test confirms the paddle is being created with color
+     */
+    void paddleColor() {
+        JPanel panel = new JPanel();
+        Paddle paddle = new Paddle(Color.red, panel);
+        Color paddlecolor = paddle.getColor();
+        assertEquals(paddlecolor, Color.red);
+    }
+    
+    @Test
+    /*
+     * This test is to make sure the Custom Menu element parent class is creating JButtons correctly
+     */
+    void customMenuTest() {
+        CustomMenuElements test = new CustomMenuElements();
+        JButton testButton = test.CustomButton("Test Button", "Helvetica", "plain", 25, Color.red);
+        assertEquals(testButton.getForeground(), Color.red);
     }
 }
