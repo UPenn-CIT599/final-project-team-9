@@ -41,7 +41,7 @@ public class HighScore {
 
 	/**
 	 * This method checks to see if a high score has been achieved and returns t/f
-	 * while adding this player to the list of players with high scores
+	 * 
 	 */
 	public boolean checkHighScore() {
 		for (int i = 0; i < players.size(); i++) {
@@ -77,8 +77,8 @@ public class HighScore {
 
 	/**
 	 * This method updates the text file of highscores from the arraylist of players
-	 * after sorting the scores in descending order and only keeping the first 10 on
-	 * the list
+	 * after adding the current player to the arraylist, sorting the scores in
+	 * descending order and only keeping the first 10 on the list
 	 */
 	public void writeScore() {
 		File highScoreFile = new File(filename);
@@ -98,14 +98,15 @@ public class HighScore {
 			e.printStackTrace();
 		}
 	}
-	
+
+	// getter
+
 	/**
-	 * This method returns the current player
+	 * 
 	 * @return
 	 */
 	public Player getPlayer() {
 		return currentPlayer;
 	}
-
 
 }

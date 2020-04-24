@@ -28,7 +28,7 @@ public class Runner {
 
 			if (MainMenu.getExitWithoutPlay() == false) {
 				frame = new Frame();
-				
+
 				MainMenu.setIsRunning(true);
 				MainMenu.setExitWithoutPlay(false);
 				Panel.setLevel(1);
@@ -36,9 +36,8 @@ public class Runner {
 				Panel.setScore(0);
 
 			}
-			
+
 		}
-		
 
 	}
 

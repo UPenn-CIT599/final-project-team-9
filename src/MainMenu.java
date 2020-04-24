@@ -43,7 +43,6 @@ public class MainMenu extends CustomMenuElements implements ActionListener {
 	private static boolean isRunning = true, exitWithoutPlay = false;
 	private SoundPlayer introMusic;
 
-
 	/**
 	 * Initializes display and welcomes the user to the game, prompts difficulty
 	 * selection Calls on the helper method difficulty listener Prompts user for
@@ -87,8 +86,6 @@ public class MainMenu extends CustomMenuElements implements ActionListener {
 		introMusic = new SoundPlayer();
 		Panel.setLevel(1);
 		introMusic.playSound();
-
-		// add ball bouncing around in the background
 
 		// easy button panel
 		JPanel easyButtonPanel = CustomPanel(100, 400, 160, 50, Color.GREEN);
@@ -195,6 +192,9 @@ public class MainMenu extends CustomMenuElements implements ActionListener {
 
 	}
 
+	/**
+	 * This method listens for user input of difficulty or game exit
+	 */
 	public void actionPerformed(ActionEvent e) {
 		String action = e.getActionCommand();
 		String input = nameField.getText().replaceAll("\\s", ""); // spaces removed from name
@@ -212,9 +212,7 @@ public class MainMenu extends CustomMenuElements implements ActionListener {
 				window.removeAll();
 				window.setVisible(false);
 				window.dispose();
-				// method to launch new game with easy
 			}
-
 
 		} else if (action.equals("Medium")) {
 			if (input.equalsIgnoreCase("") || input.equalsIgnoreCase("Pleaseenteryourname")) {
@@ -230,7 +228,6 @@ public class MainMenu extends CustomMenuElements implements ActionListener {
 				window.removeAll();
 				window.setVisible(false);
 				window.dispose();
-				// method to launch new game with easy
 			}
 
 		} else if (action.equals("Hard")) {
@@ -247,7 +244,6 @@ public class MainMenu extends CustomMenuElements implements ActionListener {
 				window.removeAll();
 				window.setVisible(false);
 				window.dispose();
-				// method to launch new game with easy
 			}
 		} else if (action.equals("Exit")) {
 			exitWithoutPlay = true;
@@ -256,15 +252,14 @@ public class MainMenu extends CustomMenuElements implements ActionListener {
 			window.removeAll();
 			window.setVisible(false);
 			window.dispose();
-			
-		} else if (action.equals("High Scores")) {
-			// what do we want the high score button to do??
+
 		}
 
 	}
 
+	// getters and setters
+
 	/**
-	 * This getter method returns the difficulty selection
 	 * 
 	 * @return
 	 */
@@ -272,29 +267,48 @@ public class MainMenu extends CustomMenuElements implements ActionListener {
 		return gameDifficulty;
 
 	}
-	
+
+	/**
+	 * 
+	 * @param difficulty
+	 */
 	public static void setDifficulty(String difficulty) {
 		gameDifficulty = difficulty;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public static boolean getIsRunning() {
 		return isRunning;
 	}
 
+	/**
+	 * 
+	 * @param b
+	 */
 	public static void setIsRunning(boolean b) {
 		isRunning = b;
 	}
-	
+
+	/**
+	 * 
+	 * @return
+	 */
 	public static boolean getExitWithoutPlay() {
 		return exitWithoutPlay;
 	}
-	
+
+	/**
+	 * 
+	 * @param b
+	 */
 	public static void setExitWithoutPlay(boolean b) {
 		exitWithoutPlay = b;
 	}
 
 	/**
-	 * This getter method returns the users name
 	 * 
 	 * @return
 	 */

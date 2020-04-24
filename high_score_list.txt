@@ -1,7 +1,11 @@
 Rank Name Score
-1 moo 998
-2 testing123 975
-3 Muizz 641
-4 Muizz 305
-5 moomoo 280
-
+1 Muizz 530
+2 Jacob 529
+3 Raheel 500
+4 Ben 429
+5 Arvind 305
+6 Allie 294
+7 Jason 255
+8 Igor 193
+9 Michael 150
+10 Gabby 99
