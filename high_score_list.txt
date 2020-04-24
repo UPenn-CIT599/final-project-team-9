@@ -1,11 +1,7 @@
 Rank Name Score
 1 moo 998
-2 moo 998
-3 moo 998
-4 testing123 975
-5 testing123 975
-6 testing123 975
-7 Muizz 305
-8 moomoo 280
-9 moomoo 280
-10 moomoo 280
+2 testing123 975
+3 Muizz 641
+4 Muizz 305
+5 moomoo 280
+
