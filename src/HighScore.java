@@ -100,7 +100,7 @@ public class HighScore {
 	}
 	
 	/**
-	 * 
+	 * This method returns the current player
 	 * @return
 	 */
 	public Player getPlayer() {

@@ -1,5 +1,5 @@
 /**
- * This class sets and maintains score 
+ * This class sets and maintains the current game score 
  * @author jacob, muizz, raheel
  */
 
@@ -8,7 +8,7 @@ public class CurrentGameScoreCalculator {
     private int score;
     
     /**
-     * This constructor initalizes the score at 0
+     * This constructor initializes the score at 0
      */
     public CurrentGameScoreCalculator() {
         

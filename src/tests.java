@@ -2,6 +2,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.RoundRectangle2D;
 import java.util.*;
 
 import javax.swing.JButton;
@@ -213,5 +215,66 @@ class tests {
         CustomMenuElements test = new CustomMenuElements();
         JButton testButton = test.CustomButton("Test Button", "Helvetica", "plain", 25, Color.red);
         assertEquals(testButton.getForeground(), Color.red);
+    }
+    
+    @Test
+    /**
+     * This test validates that the ball has color
+     */
+    void ballColor() {
+        JPanel testPanel = new JPanel();
+        Ball ball = new Ball(100, 200, Color.green, testPanel);
+        Color ballColor = ball.getColor();
+        assertEquals(ballColor, Color.green);
+    }
+    
+    @Test
+    /**
+     * This test validates the x and y position of the ball
+     */
+    void ballPosition() {
+        JPanel testPanel = new JPanel();
+        Ball ball = new Ball(100, 200, Color.green, testPanel);
+        ball.setPositionBall(250, 250);
+        int ballPosX = ball.getPosX();
+        assertEquals(ballPosX, 250);
+        
+        int ballPosY = ball.getPosY();
+        assertEquals(ballPosY, 250);
+        
+    }
+    
+    @Test
+    /**
+     * This test validates that the score is being appropriately calculated
+     */
+    void currentGameScore() {
+    	CurrentGameScoreCalculator currentScore = new CurrentGameScoreCalculator();
+    	currentScore.pointScored();
+    	int score = currentScore.getCurrentScore();
+    	assertEquals(score, 1);
+    }
+    
+    @Test
+    /**
+     * This test validates that when two shapes are in the same position the intersection of the shapes is recognized
+     */
+    void intersectionChecker() {
+    	Shape ball = new Shape(new Ellipse2D.Double(300, 500, 15, 15), Color.green, true);
+    	Shape paddle = new Shape(new RoundRectangle2D.Double(300, 500, 80, 10,15,15), Color.orange, true);
+    	boolean intersects = ball.intersection(paddle);
+    	assertEquals(intersects, true);
+    	
+    }
+   
+    @Test
+    /**
+     * This test checks if the game is paused or in play
+     */
+    void pauseTest() {
+    	Panel testPanel = new Panel();
+    	boolean pause = Panel.getIsPaused();
+    	assertEquals(pause, true);
+    	
     }
 }

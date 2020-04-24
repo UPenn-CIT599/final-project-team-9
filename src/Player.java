@@ -27,7 +27,7 @@ public class Player implements Comparable {
 	}
 	
 	/**
-	 * 
+	 * This getter returns the username
 	 * @return
 	 */
 	public String getUsername() {
@@ -35,7 +35,7 @@ public class Player implements Comparable {
 	}
 
 	/**
-	 * 
+	 * This setter sets the username
 	 * @param username
 	 */
 	public void setUsername(String username) {
@@ -43,7 +43,7 @@ public class Player implements Comparable {
 	}
 	
 	/**
-	 * 
+	 * This getter returns the score
 	 * @return
 	 */
 	public int getScore() {
@@ -51,7 +51,7 @@ public class Player implements Comparable {
 	}
 
 	/**
-	 * 
+	 * This setter sets the score
 	 * @param score
 	 */
 	public void setScore(int score) {
