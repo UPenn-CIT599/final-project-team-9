@@ -1,22 +1,2 @@
-We are Team 9 and our project was recreating a BrickBreaker game. The game is a single player game that has a layer of bricks that are arranged in 
-rows with a goal to destroy the bricks with a ball. The ball moves around the screen bouncing off of a paddle, the top, and two sides of the screen. 
-When the brick is hit, the ball bounces back and the brick is destroyed (the strength of the brick determines how quickly the brick is destroyed). 
-There are three difficulty types to choose from and each difficulty has three levels. The game continues until all bricks are destroyed at each level 
-or the ball falls below the paddle a total of three times. 
-
-Muizz Mullani worked on creating the bricks, methods to display the bricks in a randomized view, adding sound to the gameplay, updating the score and 
-high score calculations and helped pull the different classes together. 
-
-Jacob Dwyer worked on creating the paddle, creating the GUI to display the main menu and the gameboard, and helped pull the different classes together.
-
-Raheel Bhimani worked on creating the ball, helped pull the different classes together, and documentation of code comments and review of DRY, cohesive principles. 
-
-For the first two weeks, the project workflow stemmed from working on the class designs together and then we individually programmed our workloads. 
-Over the course of the following two weeks, team working sessions were held three times a week for a minimum of two hours each in which the different 
-components were brought together. 
-
-In between the working sessions, we tested and troubleshooted the game, game flow, and continuous loop. Further, we met with our TA, Ben, on a weekly 
-basis to provide updates and receive feedback, which we incorporated throughout our project. 
-
 Github: https://github.com/UPenn-CIT599/final-project-team-9
 
