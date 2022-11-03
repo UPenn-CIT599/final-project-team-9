@@ -1,5 +1,6 @@
 # final-project-team-9
 
+
 Overview:
 
 The game is a single player game that has a layer of bricks that are arranged in rows with a goal to destroy the bricks with a ball. The ball moves around the screen bouncing off of a paddle, the top, and two sides of the screen. When the brick is hit, the ball bounces back and the brick is destroyed (the strength of the brick determines how quickly the brick is destroyed). There are three difficulty types to choose from and each difficulty has three levels. The game continues until all bricks are destroyed at each level or the ball falls below the paddle a total of three times. 
